@@ -9,7 +9,7 @@
         <title>Login</title>
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        @include('layouts.header_script')
     </head>
     <body>
         <div id="layoutAuthentication">
