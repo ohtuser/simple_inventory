@@ -7,6 +7,7 @@
     @include('layouts.header_script')
 
     <title>@yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     @yield('css')
 </head>
 <body class="sb-nav-fixed">
