@@ -15,7 +15,7 @@
                 if(res.redirectTo == 'close'){
                     closeSweetAlert();
                 }
-                else if(res.redirectTo == 'closeAndMOdalHide'){
+                else if(res.redirectTo == 'closeAndModalHide'){
                     closeSweetAlert();
                     $('.modal').modal('hide');
                 }
@@ -23,6 +23,7 @@
                     location.reload();
                 }
                 else{
+                    closeSweetAlert();
                     window.location.href=res.redirectTo;
                 }
             }, 'success',res.message,res.description,res.buttonShow,null,res.timer);
@@ -43,17 +44,22 @@
         Swal.close();
     }
 
-    function customSweetAlert(callback,icon='success', title='Added', html='Data Inserted Successfully',showConfirmButton=false,position='center',timer=null){
-        Swal.fire({
-            icon: icon,
-            title: title,
-            html: html,
-            showConfirmButton: showConfirmButton,
-            position: position,
-            timer: timer,
-        }).then(()=> {
-            callback();
-        });
+    function customSweetAlert(callback,icon='success', title='Added', html='Data Inserted Successfully',showConfirmButton=false,position='center',timer=null,nowait=false){
+        // setTimeout(function() {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                html: html,
+                showConfirmButton: showConfirmButton,
+                position: position,
+                timer: timer,
+            }).then(()=> {
+                callback();
+            });
+        // }, 1000);
+        // if(nowait){
+        //     callback();
+        // }
     }
 
     async function customAjaxCall(callback, method, url, data,customConfig) {
@@ -95,10 +101,9 @@
                     }, 'error', 'Oppps!', result.join(""),true,null,null);
 
                 } else if (jqXHR.status == 421) {
-                    // console.log(jqXHR);
                     customSweetAlert(function(){
-                        console.log(textStatus);
-                    }, 'error', 'Oppps!', jqXHR.responseText,true,null,null);
+                        console.log(jqXHR);
+                    }, 'error', 'Oppps!', jqXHR.responseJSON.message,true,null,null);
                 }else if (errorThrown === 'timeout') {
                     customSweetAlert(function(){
                         console.log(textStatus);

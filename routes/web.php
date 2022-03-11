@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix'=>'admin','name'=>'admin.','middleware' => 'admin:admin'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('dashboard');
+});
+
+Route::group(['prefix'=>'stuff','name'=>'stuff.','middleware' => 'stuff:stuff'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('dashboard');
+});
+
+Route::get('session', function(){
+    return session()->all();
 });

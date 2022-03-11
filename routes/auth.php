@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_attempt', [AuthController::class, 'loginAttempt'])->name('login_attempt');
-Route::get('/dashboard', [AuthController::class, 'loginAttempt'])->name('dashboard');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// Route::get('/dashboard', [AuthController::class, 'loginAttempt'])->name('dashboard');
