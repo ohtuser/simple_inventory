@@ -11,10 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function login(){
+        Auth::guard('admin')->logout();
+        Auth::guard('stuff')->logout();
+        Auth::guard('customer')->logout();
         return view('admin.auth.login');
     }
 
     public function loginAttempt(Request $request){
+        Auth::guard('admin')->logout();
+        Auth::guard('stuff')->logout();
+        Auth::guard('customer')->logout();
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -47,7 +53,9 @@ class AuthController extends Controller
     }
 
     function logout(){
-        Auth::guard(get_guard())->logout();
+        Auth::guard('admin')->logout();
+        Auth::guard('stuff')->logout();
+        Auth::guard('customer')->logout();
         return redirect()->route('login');
     }
 }
