@@ -12,7 +12,14 @@
         customAjaxCall(function (res)
         {
             customSweetAlert(function(){
-                if(res.redirectTo == 'close'){
+                // console.log(res);
+                if(res.redirectTo == 'close' && res.call != ''){
+                    closeSweetAlert();
+                    window[res.call]();
+                    // call(res.call);
+                    $('.form_submit').trigger('reset');
+                    console.log("called",res.call);
+                }else if(res.redirectTo == 'close'){
                     closeSweetAlert();
                 }
                 else if(res.redirectTo == 'closeAndModalHide'){
@@ -128,5 +135,13 @@
 
     $(document).ready(function(){
         $('.select_2').select2();
+
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            customAjaxCall(function(res){
+                $('.commonListBody').html(res.body);
+                $('.commonListPaginate').html(res.paginate);
+            },'get',$(this).attr('href'))
+        });
     });
 </script>

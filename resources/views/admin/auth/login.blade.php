@@ -23,18 +23,18 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form class="form_submit" action="{{route('login_attempt')}}">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
+                                            <div class="form-group">
                                                 <label for="inputEmail">Email address</label>
+                                                <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Password" />
+                                            <div class="form-group mb-3">
                                                 <label for="inputPassword">Password</label>
+                                                <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Password" />
                                             </div>
-                                            <div class="form-check mb-3">
+                                            {{-- <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div>
+                                            </div> --}}
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">Forgot Password?</a>
                                                 <button class="btn btn-primary">Login</button>

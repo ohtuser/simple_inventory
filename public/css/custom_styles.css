@@ -1,0 +1,24 @@
+.card{
+    margin-top: 10px;
+}
+.card-header h5, .card-header h6{
+    margin-bottom: 0;
+}
+.btn-info, .bg-info{
+    background-color: #17a2b8!important;
+}
+.bg-orange, .btn-orange{
+    background-color: #fe6555!important;
+}
+.btn-orange{
+    margin-top: 12px;;
+    color: #fff;
+}
+.bg-primay-blue{
+    background-color: #265ed7!important;
+}
+input, select{
+    box-shadow: inset -1px 4px 10px 0px rgb(212 212 212);
+    height: 28px !important;
+    font-size: 14px !important;
+}
