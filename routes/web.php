@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    // Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::name('user.')->prefix('user')->group(function(){
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -27,6 +27,10 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
 });
 
 Route::group(['prefix'=>'stuff','name'=>'stuff.','middleware' => 'stuff:stuff'], function () {
+
+});
+
+Route::group(['middleware'=>'permission_check'], function(){
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 });
 

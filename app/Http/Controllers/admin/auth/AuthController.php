@@ -28,16 +28,18 @@ class AuthController extends Controller
         $userInfo = User::where('email', $request->email)->first();
         if($userInfo){
             if(Hash::check($request->password, $userInfo->password)){
+
                 if($userInfo->user_type == 1){
                     Auth::guard('admin')->login($userInfo);
-                    $redirectTo = '/admin';
+                    $redirectTo = '/';
                 }else if($userInfo->user_type == 2){
                     Auth::guard('stuff')->login($userInfo);
-                    $redirectTo = '/stuff';
+                    $redirectTo = '/';
                 }else{
                     Auth::guard('customer')->login($userInfo);
                     $redirectTo = '/';
                 }
+
                 session()->put('auth', $userInfo);
                 return response()->json(requestSuccess('Login Success', '', $redirectTo,500),200);
             }else{
