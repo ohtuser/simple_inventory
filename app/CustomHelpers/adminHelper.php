@@ -36,7 +36,9 @@ function userTypes($type){
     $typeArr = [
         '1'=> 'Admin',
         '2' => 'Stuff',
-        '3' => 'Customer'
+        '3' => 'Customer',
+        '4' => 'Vendor',
+        '5' => 'Both (Customer&Vendor)'
     ];
     if($type){
         return $typeArr[$type];

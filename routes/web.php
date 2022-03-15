@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PartyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,15 @@ Route::group(['prefix'=>'stuff','name'=>'stuff.','middleware' => 'stuff:stuff'],
 
 Route::group(['middleware'=>'permission_check'], function(){
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::name('admin.')->prefix('admin')->group(function(){
+        Route::name('party.')->prefix('party')->group(function(){
+            Route::get('/', [PartyController::class, 'index'])->name('index');
+            Route::get('/list', [PartyController::class, 'list'])->name('list');
+            Route::post('/store', [PartyController::class, 'store'])->name('store');
+            Route::get('/edit', [PartyController::class, 'edit'])->name('edit');
+        });
+    });
 });
 
 Route::get('session', function(){
