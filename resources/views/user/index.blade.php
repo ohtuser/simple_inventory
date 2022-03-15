@@ -15,20 +15,21 @@
                   </div>
                   <div class="card-body">
                       <form action="{{route('admin.user.store')}}" class="form_submit">
+                        <input type="hidden" name="row_id" class="row_id">
                           <div class="">
                               <label for="">Admin/Stuff</label>
-                              <select name="type" id="" class="form-control select_2">
+                              <select name="type" id="" class="form-control select_2 type">
                                   <option value="1">Admin</option>
                                   <option value="2">Stuff</option>
                               </select>
                           </div>
                           <div class="form-group">
                               <label for="">Name</label>
-                              <input type="text" name="name" class="form-control">
+                              <input type="text" name="name" class="form-control name">
                           </div>
                           <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" name="email" class="form-control">
+                            <input type="text" name="email" class="form-control email">
                         </div>
                         <div class="form-group">
                             <label for="">Password</label>
@@ -61,14 +62,32 @@
     <script>
         $(document).ready(function(){
             getUser();
+
+            $(document).on('click','.btn_edit', function(e){
+                e.preventDefault();
+                row_id = $(this).attr('data-row-id');
+                editUser(row_id);
+            });
         });
         function getUser(){
+            getLoader();
             let data = {};
             customAjaxCall(function(res){
                 console.log("res",res);
                 $('.commonListBody').html(res.body);
                 $('.commonListPaginate').html(res.paginate);
             },'GET',"{{route('admin.user.list')}}", data);
+        }
+
+        function editUser(row_id){
+            let data = {row_id};
+            customAjaxCall(function(res){
+                console.log("res",res);
+                $('.row_id').val(res.info.id);
+                $('.type').val(res.info.user_type);
+                $('.name').val(res.info.name);
+                $('.email').val(res.info.email);
+            },'GET',"{{route('admin.user.edit')}}", data);
         }
     </script>
 

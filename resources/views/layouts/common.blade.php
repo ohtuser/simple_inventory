@@ -137,6 +137,7 @@
         $('.select_2').select2();
 
         $(document).on('click', '.pagination a', function (e) {
+            getLoader();
             e.preventDefault();
             customAjaxCall(function(res){
                 $('.commonListBody').html(res.body);
@@ -144,4 +145,16 @@
             },'get',$(this).attr('href'))
         });
     });
+
+    function getLoader() {
+        $('.commonListBody').html(`<div class="d-flex justify-content-center">
+  <div class="spinner-border" style="color: #17a2b8!important" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>`);
+    }
+
+    function closeLoader(){
+        $('defaultLoader').hide();
+    }
 </script>

@@ -22,6 +22,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/list', [UserController::class, 'list'])->name('list');
         Route::post('/store', [UserController::class, 'store'])->name('store');
+        Route::get('/edit', [UserController::class, 'edit'])->name('edit');
     });
 });
 

@@ -29,10 +29,21 @@ class UserController extends Controller
         $request->validate([
             'type' => 'required',
             'name' => 'required|string|min:3|max:50',
-            'email' => 'required|email|min:4|unique:users,email'.$request->row_id,
-            'password' => 'required|min:3|max:30'
+            'email' => 'required|email|min:4|unique:users,email,'.$request->row_id
         ]);
+        $message = 'Admin/Stuff Added Successfully';
+        if(!$request->row_id){
+            $request->validate([
+                'password' => 'min:3|max:30'
+            ]);
+            $message = 'Admin/Stuff Updated Successfully';
+        }
         User::storeOrUpdate($request);
-        return response()->json(requestSuccess('Admin/Stuff Added Successfully', '', 'close',1000, 'getUser'),200);
+        return response()->json(requestSuccess($message, '', 'close',1000, 'getUser'),200);
+    }
+
+    public function edit(Request $request){
+        $info = User::findOrFail($request->row_id);
+        return response()->json(['info'=>$info]);
     }
 }

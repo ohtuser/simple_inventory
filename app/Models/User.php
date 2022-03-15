@@ -49,12 +49,15 @@ class User extends Authenticatable
             'user_type' => $request->type,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
         ];
         // dd($request);
         if($request->row_id){
+            if($request->password){
+                $data['password'] = Hash::make($request->password);
+            }
             User::find($request->row_id)->update($data);
         }else{
+            $data['password'] = Hash::make($request->password);
             User::create($data);
         }
         return true;
