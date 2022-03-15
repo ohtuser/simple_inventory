@@ -3,8 +3,9 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header text-white bg-primay-blue">
+    <div class="card-header text-white bg-primay-blue justify-content-between d-flex">
         <h5>Admin Management</h5>
+        <button class="btn btn-sm btn-light" onclick="form_submit_reset()">Add Admin/Stuff</button>
     </div>
     <div class="card-body">
       <div class="row">
@@ -62,7 +63,6 @@
     <script>
         $(document).ready(function(){
             getUser();
-
             $(document).on('click','.btn_edit', function(e){
                 e.preventDefault();
                 row_id = $(this).attr('data-row-id');
@@ -71,6 +71,7 @@
         });
         function getUser(){
             getLoader();
+            $('.row_id').val('');
             let data = {};
             customAjaxCall(function(res){
                 console.log("res",res);
@@ -84,7 +85,7 @@
             customAjaxCall(function(res){
                 console.log("res",res);
                 $('.row_id').val(res.info.id);
-                $('.type').val(res.info.user_type);
+                $('.type').val(res.info.user_type).change();
                 $('.name').val(res.info.name);
                 $('.email').val(res.info.email);
             },'GET',"{{route('admin.user.edit')}}", data);

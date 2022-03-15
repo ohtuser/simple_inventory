@@ -157,4 +157,9 @@
     function closeLoader(){
         $('defaultLoader').hide();
     }
+
+    function form_submit_reset(){
+        $('.form_submit').trigger('reset');
+        $('.row_id').val('');
+    }
 </script>
