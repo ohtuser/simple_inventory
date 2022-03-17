@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PartyController;
+use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,5 @@ Route::group(['middleware'=>'permission_check'], function(){
 Route::get('session', function(){
     return session()->all();
 });
+
+Route::get('sidebar_write', [SidebarController::class, 'sidebar_write']);
