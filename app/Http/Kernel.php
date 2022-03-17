@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\AdminStuffCustomer;
 use App\Http\Middleware\Customer;
 use App\Http\Middleware\permissionCheck;
 use App\Http\Middleware\Stuff;
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'admin' => Admin::class,
         'stuff' => Stuff::class,
         'customer' => Customer::class,
-        'permission_check' => permissionCheck::class
+        'admin_or_stuff' => permissionCheck::class,
+        'admin_or_stuff_or_customer' => AdminStuffCustomer::class
     ];
 }

@@ -18,6 +18,8 @@ class CreateSidebarsTable extends Migration
             $table->string('module_name');
             $table->string('group_name')->nullable();
             $table->string('name');
+            $table->string('route');
+            $table->string('icon');
             $table->integer('sort')->nullable();
             $table->boolean('permission_admin')->default(0)->comment('1=can access');
             $table->boolean('permission_stuff')->default(0)->comment('1=can access');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SidebarController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $userInfo = User::where('email', $request->email)->first();
+        $userInfo = User::where('email', $request->email)->whereIn('user_type', [1,2,3,5])->first();
         if($userInfo){
             if(Hash::check($request->password, $userInfo->password)){
 
@@ -39,7 +40,7 @@ class AuthController extends Controller
                     Auth::guard('customer')->login($userInfo);
                     $redirectTo = '/';
                 }
-
+                SidebarController::set_sidebar($userInfo->user_type);
                 session()->put('auth', $userInfo);
                 return response()->json(requestSuccess('Login Success', '', $redirectTo,500),200);
             }else{
@@ -58,6 +59,7 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         Auth::guard('stuff')->logout();
         Auth::guard('customer')->logout();
+        session()->forget('sidebar');
         return redirect()->route('login');
     }
 }

@@ -33,6 +33,7 @@
                     closeSweetAlert();
                     window.location.href=res.redirectTo;
                 }
+                form_submit_reset();
             }, 'success',res.message,res.description,res.buttonShow,null,res.timer);
         },'POST',$(this).attr('action'),formData,customConfig);
     });
@@ -160,6 +161,7 @@
 
     function form_submit_reset(){
         $('.form_submit').trigger('reset');
+        $('.form_submit select').trigger('change');
         $('.row_id').val('');
     }
 </script>
