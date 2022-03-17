@@ -99,4 +99,23 @@ trait ListTrait {
         }
         return $returnHtml;
     }
+
+    function getProductList($data = []){
+        $returnHtml = '<table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead><body>';
+        foreach($data as $key=>$d){
+            $returnHtml .= '<tr>
+                <td>'.(++$key).'</td>
+                <td>'.$d->name.'</td>
+                <td><a href="" data-row-id="'.$d->id.'" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+            </tr>';
+        }
+        return $returnHtml;
+    }
 }

@@ -14,9 +14,10 @@ class SidebarController extends Controller
             ['module_name'=>'Settings', 'group_name'=>'User Management', 'name'=>'User Management','icon'=> 'fas fa-user', 'route'=>'admin.user.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Settings', 'group_name'=>'Party Management', 'name'=>'Party Management','icon'=> 'fas fa-user', 'route'=>'admin.party.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Unit', 'name'=>'Unit','icon'=> 'fas fa-bars', 'route'=>'admin.unit.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
-            ['module_name'=>'Brand Management', 'group_name'=>'Brand', 'name'=>'Brand','icon'=> 'fas fa-bars', 'route'=>'admin.brand.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
+            ['module_name'=>'Product Management', 'group_name'=>'Brand', 'name'=>'Brand','icon'=> 'fas fa-bars', 'route'=>'admin.brand.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Category', 'name'=>'Category','icon'=> 'fas fa-bars', 'route'=>'admin.category.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Category', 'name'=>'Sub Category','icon'=> 'fas fa-bars', 'route'=>'admin.sub_category.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
+            ['module_name'=>'Product Management', 'group_name'=>'Product', 'name'=>'Product','icon'=> 'fas fa-bars', 'route'=>'admin.product.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 
         return 'success';

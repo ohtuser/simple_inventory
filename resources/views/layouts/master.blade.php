@@ -21,7 +21,7 @@
                 </div>
             </main>
 
-            @include('layouts.footer')
+            {{-- @include('layouts.footer') --}}
         </div>
     </div>
     @include('layouts.footer_script')

@@ -4,6 +4,8 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\Product\CategoryController;
+use App\Http\Controllers\Product\CommonProductController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\UnitController;
 use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
@@ -47,6 +49,13 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
             Route::post('/store', [BrandController::class, 'store'])->name('store');
             Route::get('/edit', [BrandController::class, 'edit'])->name('edit');
         });
+
+        Route::name('product.')->prefix('product')->group(function(){
+            Route::get('/', [ProductController::class, 'index'])->name('index');
+            Route::get('/list', [ProductController::class, 'list'])->name('list');
+            Route::post('/store', [ProductController::class, 'store'])->name('store');
+            Route::get('/edit', [ProductController::class, 'edit'])->name('edit');
+        });
     });
 });
 
@@ -71,6 +80,11 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
     });
 });
 
+// common routes
+
+Route::name('common.')->prefix('common')->group(function(){
+    Route::get('get-subcategory', [CommonProductController::class, 'getSubcategory'])->name('get_subcategory');
+});
 
 
 // project setting

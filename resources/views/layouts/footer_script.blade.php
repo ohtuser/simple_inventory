@@ -14,3 +14,9 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {{-- common blade --}}
 @include('layouts.common');
+
+<script>
+    $(document).ready(function(){
+        $("input[type='number']").attr('onfocus', "this.select()");
+    });
+</script>
