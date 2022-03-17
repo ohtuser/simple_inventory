@@ -35,7 +35,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="">Sub Category</label>
                                         <select name="sub_category" class="form-control product_sub_category select_2">
 
@@ -53,7 +53,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="" class="rfl">Unit</label>
                                         <select name="unit" class="form-control category select_2">
                                             @foreach ($units as $u)
@@ -69,7 +69,7 @@
                                         <label for="" class="rfl">Buy Price</label>
                                         <input type="number" step="0.000001" value="0" name="buy_price" class="form-control">
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="">Buy Price Code</label>
                                         <input type="text" name="buy_price_code" class="form-control">
                                     </div>
@@ -81,7 +81,7 @@
                                         <label for="" class="rfl">Sell Price</label>
                                         <input type="number" step="0.000001" name="sell_price" value="0" class="form-control">
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="">Sell Price Code</label>
                                         <input type="text" name="sell_price_code" class="form-control">
                                     </div>
@@ -93,7 +93,7 @@
                                         <label for="" class="rfl">Reorder Level</label>
                                         <input type="number" step="0.000001" value="0" name="reorder_level" class="form-control">
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="">Item Group</label>
                                         <select name="item_group" id="" class="form-control select_2">
                                             <option value="1">Consumeable</option>
@@ -108,7 +108,7 @@
                                         <label for="">Product Code</label>
                                         <input type="number" step="0.000001" name="product_code" class="form-control">
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 custom-pl-0">
                                         <label for="">Serial</label>
                                         <input type="text" name="serial" class="form-control">
                                     </div>

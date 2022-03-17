@@ -106,13 +106,21 @@ trait ListTrait {
                 <tr>
                     <th>SL</th>
                     <th>Name</th>
+                    <th>Category</th>
+                    <th>Unit/Brand</th>
+                    <th>Buy Price/Code</th>
+                    <th>Sell Price/Code</th>
                     <th>Action</th>
                 </tr>
             </thead><body>';
         foreach($data as $key=>$d){
             $returnHtml .= '<tr>
                 <td>'.(++$key).'</td>
-                <td>'.$d->name.'</td>
+                <td>'.$d->name.'<br> - '.$d->local_name.'</td>
+                <td>'.$d->getCategory->name.'<br> - '.$d->getSubCategory->name.'</td>
+                <td>'.$d->getUnit->name.'<br> - '.$d->getBrand->name.'</td>
+                <td>'.$d->buy_price.'<br> - '.$d->buy_price_code.'</td>
+                <td>'.$d->sell_price.'<br> - '.$d->sell_price_code.'</td>
                 <td><a href="" data-row-id="'.$d->id.'" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
             </tr>';
         }

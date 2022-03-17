@@ -37,4 +37,20 @@ class Products extends Model
         }
         return true;
     }
+
+    public function getCategory(){
+        return $this->belongsTo(ProductCategory::class, 'category');
+    }
+
+    public function getSubCategory(){
+        return $this->belongsTo(ProductCategory::class, 'sub_category');
+    }
+
+    public function getBrand(){
+        return $this->belongsTo(Brand::class, 'brand');
+    }
+
+    public function getUnit(){
+        return $this->belongsTo(Unit::class, 'unit');
+    }
 }

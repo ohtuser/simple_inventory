@@ -45,3 +45,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.custom-pl-0{
+    padding-left: 0!important;
+}
