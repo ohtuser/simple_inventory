@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\Product\CategoryController;
@@ -38,6 +39,13 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
             Route::get('/list', [UnitController::class, 'list'])->name('list');
             Route::post('/store', [UnitController::class, 'store'])->name('store');
             Route::get('/edit', [UnitController::class, 'edit'])->name('edit');
+        });
+
+        Route::name('brand.')->prefix('brand')->group(function(){
+            Route::get('/', [BrandController::class, 'index'])->name('index');
+            Route::get('/list', [BrandController::class, 'list'])->name('list');
+            Route::post('/store', [BrandController::class, 'store'])->name('store');
+            Route::get('/edit', [BrandController::class, 'edit'])->name('edit');
         });
     });
 });
