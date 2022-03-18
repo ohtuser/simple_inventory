@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommonProductController extends Controller
@@ -84,5 +85,21 @@ class CommonProductController extends Controller
                 </tr>
             </tbody></table>';
         return response()->json(['info'=>$returnHtml]);
+    }
+
+    public function vendorLiveSearch(Request $request){
+        // dd($request->all);
+        $list = User::whereIn('user_type', [4,5])->where(function($q)use($request){
+            if(!empty($key_like))
+                $q->where("name","like",'%'.$request->term.'%');
+        })->get();
+        $data=array();
+
+        foreach ($list as $val) {
+            $title=$val->name;
+            $data[] = array("id" => $val->id,
+                "text" => $title);
+        }
+        return $data;
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceSettingController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\Product\CategoryController;
@@ -58,6 +59,12 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
             Route::get('/edit', [ProductController::class, 'edit'])->name('edit');
         });
     });
+
+
+
+    Route::name('transaction.')->prefix('transaction')->group(function(){
+        Route::get('purchase/create', [InventoryController::class, 'purchaseCreate'])->name('purchase.create');
+    });
 });
 
 Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(function () {
@@ -86,6 +93,9 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
 Route::name('common.')->prefix('common')->group(function(){
     Route::get('get-subcategory', [CommonProductController::class, 'getSubcategory'])->name('get_subcategory');
     Route::get('get-product-details', [CommonProductController::class, 'getProductDetails'])->name('get_product_details');
+
+    // live search
+    Route::get('vendor-live-search', [CommonProductController::class, 'vendorLiveSearch'])->name('vendor_live_search');
 });
 
 Route::get('invoice-setting', [InvoiceSettingController::class, 'index'])->name('invoice_setting');

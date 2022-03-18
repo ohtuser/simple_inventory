@@ -16,4 +16,6 @@
             }
         },'GET',"{{route('common.get_subcategory')}}", data);
     }
+
+
 </script>

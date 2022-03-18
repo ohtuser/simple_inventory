@@ -18,6 +18,9 @@ class SidebarController extends Controller
             ['module_name'=>'Product Management', 'group_name'=>'Category', 'name'=>'Category','icon'=> 'fas fa-bars', 'route'=>'admin.category.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Category', 'name'=>'Sub Category','icon'=> 'fas fa-bars', 'route'=>'admin.sub_category.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Product', 'name'=>'Product','icon'=> 'fas fa-bars', 'route'=>'admin.product.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
+
+
+            ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'Create','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.create','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 
         return 'success';
@@ -30,11 +33,11 @@ class SidebarController extends Controller
 
         // return $infos;
         foreach($infos->groupBy('module_name') as $info){
-            $sidebar_html .= '<div class="sb-sidenav-menu-heading m">'.$info[0]->module_name.'</div>';
+            $sidebar_html .= '<div class="sb-sidenav-menu-heading p-0 pt-3 m">'.$info[0]->module_name.'</div>';
             $groups = $info->groupBy('group_name');
             foreach($groups as $group){
                 if(count($group) > 1){
-                    $sidebar_html .= '<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    $sidebar_html .= '<a class="nav-link py-0 collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa-angle-down '.$group[0]->icon.'"></i></div>
                             '.$group[0]->group_name.'
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -42,11 +45,11 @@ class SidebarController extends Controller
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">';
                             foreach($group as $route){
-                                $sidebar_html .= '<a class="nav-link" href="'.route($route->route).'">'.$route->name.'</a>';
+                                $sidebar_html .= '<a class="nav-link py-0" href="'.route($route->route).'">'.$route->name.'</a>';
                             }
                             $sidebar_html .= '</nav></div>';
                 }else{
-                    $sidebar_html .= '<a class="nav-link" href="'.route($group[0]->route).'">
+                    $sidebar_html .= '<a class="nav-link py-0" href="'.route($group[0]->route).'">
                         <div class="sb-nav-link-icon"><i class="'.$group[0]->icon.'"></i></div>
                         '.$group[0]->group_name.'
                     </a>';
