@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceSettingController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\CommonProductController;
@@ -87,6 +88,8 @@ Route::name('common.')->prefix('common')->group(function(){
     Route::get('get-product-details', [CommonProductController::class, 'getProductDetails'])->name('get_product_details');
 });
 
+Route::get('invoice-setting', [InvoiceSettingController::class, 'index'])->name('invoice_setting');
+Route::post('invoice-setting-store', [InvoiceSettingController::class, 'store'])->name('invoice_setting_store');
 
 // project setting
 Route::get('set', function(){
