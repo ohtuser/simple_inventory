@@ -84,6 +84,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
 
 Route::name('common.')->prefix('common')->group(function(){
     Route::get('get-subcategory', [CommonProductController::class, 'getSubcategory'])->name('get_subcategory');
+    Route::get('get-product-details', [CommonProductController::class, 'getProductDetails'])->name('get_product_details');
 });
 
 

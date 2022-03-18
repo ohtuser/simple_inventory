@@ -117,11 +117,14 @@ trait ListTrait {
             $returnHtml .= '<tr>
                 <td>'.(++$key).'</td>
                 <td>'.$d->name.'<br> - '.$d->local_name.'</td>
-                <td>'.$d->getCategory->name.'<br> - '.$d->getSubCategory->name.'</td>
+                <td>'.$d->getCategory->name.'<br> - '.($d->getSubCategory->name ?? '').'</td>
                 <td>'.$d->getUnit->name.'<br> - '.$d->getBrand->name.'</td>
                 <td>'.$d->buy_price.'<br> - '.$d->buy_price_code.'</td>
                 <td>'.$d->sell_price.'<br> - '.$d->sell_price_code.'</td>
-                <td><a href="" data-row-id="'.$d->id.'" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+                <td>
+                    <a href="" data-row-id="'.$d->id.'" class="btn btn-warning btn-sm btn_edit"><i class="fas fa-edit"></i></a>
+                    <button class="btn btn-info btn-sm text-white" onclick="showProductDetails('.$d->id.')"><i class="fas fa-info"></i></button>
+                </td>
             </tr>';
         }
         return $returnHtml;

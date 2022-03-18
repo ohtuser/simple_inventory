@@ -29,7 +29,12 @@ class Products extends Model
             'item_group' => $request->item_group,
             'description' => $request->description,
         ];
-        // dd($request);
+
+        if($request->hasFile('image')){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/product'), $imageName);
+            $data['image'] = $imageName;
+        }
         if($request->row_id){
            self::find($request->row_id)->update($data);
         }else{

@@ -27,5 +27,7 @@
     @include('layouts.footer_script')
 
     @yield('js')
+
+    @include('product.product.details_modal')
 </body>
 </html>
