@@ -17,7 +17,7 @@
                       <form action="{{route('admin.unit.store')}}" class="form_submit">
                         {{-- <input type="hidden" name="row_id" class="row_id"> --}}
 
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Vendor</label>
@@ -54,6 +54,10 @@
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row product_transaction_table">
+                            @include('product.product_transaction', ['inv_settings'=>getInvoiceSettings(1)])
                         </div>
                         <button class="btn btn-info btn-sm">Save</button>
                       </form>

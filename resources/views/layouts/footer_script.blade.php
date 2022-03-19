@@ -28,6 +28,10 @@
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
         });
+
+        let product_transaction_table_height = $('.product_transaction_table').offset().top;
+        $('.product_transaction_table').css('max-height', `calc(100vh - ${product_transaction_table_height}px)`);
+
     });
 
     remote_select('product_search','common/product-live-search', true, "Select Product", true);
@@ -46,7 +50,7 @@
                 data: function (term) {
                     return {
                         // p_ids: (p_ids.length == 0 ? [0] : p_ids),
-                        term: ''
+                        term: term
                     };
                 },
                 processResults: function (data) {
@@ -66,6 +70,6 @@
             }
         });
     }
-    //
+
 
 </script>

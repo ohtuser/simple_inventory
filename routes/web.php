@@ -96,6 +96,7 @@ Route::name('common.')->prefix('common')->group(function(){
 
     // live search
     Route::get('vendor-live-search', [CommonProductController::class, 'vendorLiveSearch'])->name('vendor_live_search');
+    Route::get('product-live-search', [CommonProductController::class, 'productLiveSearch'])->name('product_live_search');
 });
 
 Route::get('invoice-setting', [InvoiceSettingController::class, 'index'])->name('invoice_setting');

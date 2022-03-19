@@ -90,8 +90,40 @@ class CommonProductController extends Controller
     public function vendorLiveSearch(Request $request){
         // dd($request->all);
         $list = User::whereIn('user_type', [4,5])->where(function($q)use($request){
-            if(!empty($key_like))
-                $q->where("name","like",'%'.$request->term.'%');
+            if(!empty($request->term['term']))
+                $q->where("name","like",'%'.$request->term['term'].'%');
+        })->get();
+        $data=array();
+
+        foreach ($list as $val) {
+            $title=$val->name;
+            $data[] = array("id" => $val->id,
+                "text" => $title);
+        }
+        return $data;
+    }
+
+    public function customerLiveSearch(Request $request){
+        // dd($request->all);
+        $list = User::whereIn('user_type', [3,5])->where(function($q)use($request){
+            if(!empty($request->term['term']))
+                $q->where("name","like",'%'.$request->term['term'].'%');
+        })->get();
+        $data=array();
+
+        foreach ($list as $val) {
+            $title=$val->name;
+            $data[] = array("id" => $val->id,
+                "text" => $title);
+        }
+        return $data;
+    }
+
+    public function productLiveSearch(Request $request){
+        // dd($request->all);
+        $list = Products::where(function($q)use($request){
+            if(!empty($request->term['term']))
+                $q->where("name","like",'%'.$request->term['term'].'%');
         })->get();
         $data=array();
 
