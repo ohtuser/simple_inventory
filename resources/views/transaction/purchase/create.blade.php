@@ -76,9 +76,19 @@
             </div>
           </div>
       </div>
-
+      <button onclick="addNewRow()" class="btn btn-success" style="position: fixed; top: 50%; right: 0; "><i class="fas fa-plus"></i></button>
 @endsection
 
 @section('js')
+
+      <script>
+          $(document).ready(function(){
+            $(document).on('change', '.product_search', function(){
+                product_id = $(this).val();
+                row = $(this).attr('data-row');
+                setProductInfo(product_id,row);
+            });
+          });
+      </script>
 
 @endsection

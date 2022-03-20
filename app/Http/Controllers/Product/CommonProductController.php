@@ -17,6 +17,11 @@ class CommonProductController extends Controller
     }
 
     public function getProductDetails(Request $request){
+        if($request->transaction){
+            $info = Products::with('getCategory','getSubCategory','getBrand','getUnit')->findOrFail($request->id);
+            return response()->json(['info'=>$info]);
+        }
+
         $info = Products::with('getCategory','getSubCategory','getBrand','getUnit')->findOrFail($request->id);
         $returnHtml = '<div class="d-flex justify-content-center mb-2">
                 <image src="'.asset('images/product/'.$info->image).'" style="max-width: 100px;">
