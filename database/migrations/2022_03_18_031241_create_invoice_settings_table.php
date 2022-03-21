@@ -27,6 +27,13 @@ class CreateInvoiceSettingsTable extends Migration
             $table->string('invoice_print_field_show_label')->comment("comma separated")->nullable();
             $table->timestamps();
         });
+
+        DB::table('invoice_settings')->insert([
+            ['id'=>1, 'invoice_name'=>'Purchase', 'invoice_prefix'=>'P-'],
+            ['id'=>2, 'invoice_name'=>'Purchase Return', 'invoice_prefix'=>'PR-'],
+            ['id'=>3, 'invoice_name'=>'Sell', 'invoice_prefix'=>'S-'],
+            ['id'=>4, 'invoice_name'=>'Sell Return', 'invoice_prefix'=>'SR-']
+        ]);
     }
 
     /**

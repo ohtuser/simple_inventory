@@ -34,7 +34,7 @@ class CommonProductController extends Controller
                 </tr>
                 <tr>
                     <td>Local Name</td>
-                    <td>'.$info->local_name.'</td>
+                    <td>'.($info->local_name ?? '-').'</td>
                 </tr>
                 <tr>
                     <td>Category</td>
@@ -42,7 +42,7 @@ class CommonProductController extends Controller
                 </tr>
                 <tr>
                     <td>Sub Category</td>
-                    <td>'.$info->getSubCategory->name.'</td>
+                    <td>'.($info->getSubCategory->name ?? '-').'</td>
                 </tr>
                 <tr>
                     <td>Brand</td>

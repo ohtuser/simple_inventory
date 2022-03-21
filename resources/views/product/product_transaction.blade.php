@@ -4,7 +4,7 @@
     // dd($inv_settings->posting_field_show)
 @endphp
 
-<table class="table table-striped table-hover table-bordered">
+<table class="table table-hover table-bordered">
     <thead>
         <tr>
             <th class="text-center">Sl</th>
@@ -39,7 +39,7 @@
                         <td><input type="text" value="" class="form-control text-center description" readonly="true"></td>
                     @endif
                     @if (in_array(5, $pfs))
-                        <td class="text-center"><button type="button" class="btn btn-sm btn-info text-white details"><i class="fas fa-info"></i></button></td>
+                        <td class="text-center"><button type="button" class="btn btn-sm btn-info text-white details" style="display: none"><i class="fas fa-info"></i></button></td>
                     @endif
                     @if (in_array(6, $pfs))
                         <td class="text-center buy_price"></td>
@@ -48,7 +48,7 @@
                         <td class="text-center buy_price_code"></td>
                     @endif
                     @if (in_array(8, $pfs))
-                        <td><input type="text" value="" class="form-control text-center sell_price" readonly="true"></td>
+                        <td class="text-center sell_price"></td>
                     @endif
                     @if (in_array(9, $pfs))
                         <td class="text-center sell_price_code"></td>
@@ -65,9 +65,9 @@
                     @if (in_array(13, $pfs))
                         <td class="text-center last_purchase_history"></td>
                     @endif
-                    <td><input type="text" name="qty[]" value="" class="form-control text-center" readonly="true"></td>
-                    <td><input type="text" name="price[]" class="form-control text-center" readonly="true"></td>
-                    <td><input type="text" name="total[]" class="form-control text-center" readonly="true"></td>
+                    <td><input type="text" name="qty[]" value="" class="form-control text-center qty" readonly="true"></td>
+                    <td><input type="text" name="price[]" class="form-control text-center price" readonly="true"></td>
+                    <td><input type="text" name="total[]" class="form-control text-center total" readonly="true"></td>
               </tr>
           @endfor
       </tbody>
@@ -99,7 +99,7 @@
                 rowHtml += `<td><input type="text" value="" class="form-control text-center description" readonly="true"></td>`;
             }
             if(pfs.includes('5')){
-                rowHtml += `<td class="text-center"><button class="btn btn-sm btn-info text-white"><i class="fas fa-info"></i></button></td>`;
+                rowHtml += `<td class="text-center"><button class="btn btn-sm btn-info text-white details" style="display: none"><i class="fas fa-info"></i></button></td>`;
             }
             if(pfs.includes('6')){
                 rowHtml += `<td class="text-center buy_price"></td>`;
@@ -108,7 +108,7 @@
                 rowHtml += `<td class="text-center buy_price_code"></td>`;
             }
             if(pfs.includes('8')){
-                rowHtml += `<td><input type="text" value="" class="form-control text-center sell_price" readonly="true"></td>`;
+                rowHtml += `<td class="text-center sell_price"></td>`;
             }
             if(pfs.includes('9')){
                 rowHtml += `<td class="text-center sell_price_code"></td>`;
@@ -125,9 +125,9 @@
             if(pfs.includes('13')){
                 rowHtml += `<td class="text-center last_purchase_history"></td>`;
             }
-            rowHtml += `<td><input type="text" name="qty[]" value="" class="form-control text-center" readonly="true"></td>
-            <td><input type="text" name="price[]" class="form-control text-center" readonly="true"></td>
-            <td><input type="text" name="total[]" class="form-control text-center" readonly="true"></td>
+            rowHtml += `<td><input type="text" name="qty[]" value="" class="form-control text-center qty" readonly="true"></td>
+            <td><input type="text" name="price[]" class="form-control text-center price" readonly="true"></td>
+            <td><input type="text" name="total[]" class="form-control text-center total" readonly="true"></td>
         </tr>`;
         $('.product_transaction_table tbody').append(rowHtml);
         remote_select('product_search','common/product-live-search', true, "Select Product", true);
@@ -145,7 +145,17 @@
             $(`.tr${row}`).children('.avail_qty').text(0);
             $(`.tr${row}`).children('.unit').text(info.get_unit.name);
             $(`.tr${row}`).children().children('.description').attr('readonly', false);
-            $(`.tr${row}`).children().children('.details').attr('onclick', `showProductDetails(${product_id})`);
+            $(`.tr${row}`).children().children('.details').attr('onclick', `showProductDetails(${product_id})`).show();
+            $(`.tr${row}`).children('.buy_price').text(info.buy_price);
+            $(`.tr${row}`).children('.buy_price_code').text(info.buy_price_code);
+            $(`.tr${row}`).children('.sell_price').text(info.sell_price);
+            $(`.tr${row}`).children('.sell_price_code').text(info.sell_price_code);
+            $(`.tr${row}`).children().children('.discount_percentage').attr('readonly', false);
+            $(`.tr${row}`).children().children('.manual_discount').attr('readonly', false);
+            $(`.tr${row}`).children('.product_code').text(info.product_code);
+            $(`.tr${row}`).children().children('.qty').attr('readonly', false).val(0);
+            $(`.tr${row}`).children().children('.price').attr('readonly', false).val(info.buy_price);
+            $(`.tr${row}`).children().children('.total').val(0);
         }, 'get', "{{ route('common.get_product_details') }}", {transaction: 1,id:product_id});
     }
 </script>
