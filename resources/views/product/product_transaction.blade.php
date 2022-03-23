@@ -24,7 +24,7 @@
           @for($trs=1;$trs<=5;$trs++)
               <tr class="tr{{ $trs }}">
                     <td class="text-center">{{ $trs }}</td>
-                    <td width="25%"><select width="100%" name="product[]" data-row="{{ $trs }}" class="form-control product_search"></select></td>
+                    <td width="25%"><select width="100%" name="product[]" data-row="{{ $trs }}" class="form-control product_search product"></select></td>
 
                     @if (in_array(1, $pfs))
                         <td class="text-center local_name"></td>
@@ -54,10 +54,10 @@
                         <td class="text-center sell_price_code"></td>
                     @endif
                     @if (in_array(10, $pfs))
-                        <td><input type="text" value="" class="form-control text-center discount_percentage" readonly="true"></td>
+                        <td><input type="number" value="" onkeyup="calculate()" class="form-control text-center discount_percentage discount_percentage{{$trs}}" readonly="true"></td>
                     @endif
                     @if (in_array(11, $pfs))
-                        <td><input type="text" value="" class="form-control text-center manual_discount" readonly="true"></td>
+                        <td><input type="number" value="" onkeyup="calculate()" class="form-control text-center manual_discount manual_discount{{$trs}}" readonly="true"></td>
                     @endif
                     @if (in_array(12, $pfs))
                         <td class="text-center product_code"></td>
@@ -65,9 +65,9 @@
                     @if (in_array(13, $pfs))
                         <td class="text-center last_purchase_history"></td>
                     @endif
-                    <td><input type="text" name="qty[]" value="" class="form-control text-center qty" readonly="true"></td>
-                    <td><input type="text" name="price[]" class="form-control text-center price" readonly="true"></td>
-                    <td><input type="text" name="total[]" class="form-control text-center total" readonly="true"></td>
+                    <td><input type="number" name="qty[]" value="" onkeyup="calculate()" class="form-control text-center qty qty{{$trs}}" readonly="true"></td>
+                    <td><input type="number" name="price[]" onkeyup="calculate()" class="form-control text-center price price{{$trs}}" readonly="true"></td>
+                    <td><input type="text" name="total[]" class="form-control text-center total total{{$trs}}" readonly="true"></td>
               </tr>
           @endfor
       </tbody>
@@ -84,7 +84,7 @@
         let rowHtml = `
         <tr class="tr${ trs }">
             <td class="text-center">${ trs }</td>
-            <td width="25%"><select width="100%" name="product[]" data-row="${ trs }" class="form-control product_search"></select></td>`;
+            <td width="25%"><select width="100%" name="product[]" data-row="${ trs }" class="form-control product_search product"></select></td>`;
 
             if(pfs.includes('1')){
                 rowHtml += `<td class="text-center local_name"></td>`;
@@ -114,10 +114,10 @@
                 rowHtml += `<td class="text-center sell_price_code"></td>`;
             }
             if(pfs.includes('10')){
-                rowHtml += `<td><input type="text" value="" class="form-control text-center discount_percentage" readonly="true"></td>`;
+                rowHtml += `<td><input type="number" value="" data-row="${ trs }" onkeyup="calculate()" class="form-control text-center discount_percentage discount_percentage${trs}" readonly="true"></td>`;
             }
             if(pfs.includes('11')){
-                rowHtml += `<td><input type="text" value="" class="form-control text-center manual_discount" readonly="true"></td>`;
+                rowHtml += `<td><input type="number" value="" data-row="${ trs }" onkeyup="calculate()" class="form-control text-center manual_discount manual_discount${trs}" readonly="true"></td>`;
             }
             if(pfs.includes('12')){
                 rowHtml += `<td class="text-center product_code"></td>`;
@@ -125,9 +125,9 @@
             if(pfs.includes('13')){
                 rowHtml += `<td class="text-center last_purchase_history"></td>`;
             }
-            rowHtml += `<td><input type="text" name="qty[]" value="" class="form-control text-center qty" readonly="true"></td>
-            <td><input type="text" name="price[]" class="form-control text-center price" readonly="true"></td>
-            <td><input type="text" name="total[]" class="form-control text-center total" readonly="true"></td>
+            rowHtml += `<td><input type="number" name="qty[]" data-row="${ trs }" onkeyup="calculate()" value="" class="form-control text-center qty qty${trs}" readonly="true"></td>
+            <td><input type="number" name="price[]" data-row="${ trs }" onkeyup="calculate()" class="form-control text-center price price${trs}" readonly="true"></td>
+            <td><input type="text" name="total[]" data-row="${ trs }" class="form-control text-center total total${trs}" readonly="true"></td>
         </tr>`;
         $('.product_transaction_table tbody').append(rowHtml);
         remote_select('product_search','common/product-live-search', true, "Select Product", true);
@@ -150,12 +150,41 @@
             $(`.tr${row}`).children('.buy_price_code').text(info.buy_price_code);
             $(`.tr${row}`).children('.sell_price').text(info.sell_price);
             $(`.tr${row}`).children('.sell_price_code').text(info.sell_price_code);
-            $(`.tr${row}`).children().children('.discount_percentage').attr('readonly', false);
-            $(`.tr${row}`).children().children('.manual_discount').attr('readonly', false);
+            $(`.tr${row}`).children().children('.discount_percentage').attr('readonly', false).val(0);
+            $(`.tr${row}`).children().children('.manual_discount').attr('readonly', false).val(0);
             $(`.tr${row}`).children('.product_code').text(info.product_code);
             $(`.tr${row}`).children().children('.qty').attr('readonly', false).val(0);
             $(`.tr${row}`).children().children('.price').attr('readonly', false).val(info.buy_price);
             $(`.tr${row}`).children().children('.total').val(0);
+            calculate();
         }, 'get', "{{ route('common.get_product_details') }}", {transaction: 1,id:product_id});
+    }
+
+
+    function calculate(){
+        $('.product').each(function(){
+            cur_row = $(this).attr('data-row');
+            if($(this).val() != null){
+                price = $(`.price${cur_row}`).val();
+                qty = $(`.qty${cur_row}`).val();
+                discount_percentage = $(`.discount_percentage${cur_row}`).val();
+                manual_discount = $(`.manual_discount${cur_row}`).val();
+                if(price == undefined){
+                    price = 0;
+                }
+                if(qty == undefined){
+                    qty = 0;
+                }
+                if(discount_percentage == undefined){
+                    discount_percentage = 0;
+                }
+                if(manual_discount == undefined){
+                    manual_discount = 0;
+                }
+                total = (parseFloat(price*qty))-parseFloat(manual_discount)-parseFloat((discount_percentage/100)*(price*qty));
+                $(`.total${cur_row}`).val(parseFloat(total).toFixed(2));
+                console.log(price, qty, discount_percentage, manual_discount);
+            }
+        });
     }
 </script>
