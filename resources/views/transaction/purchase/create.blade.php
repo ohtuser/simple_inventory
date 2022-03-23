@@ -59,24 +59,16 @@
                         <div class="row product_transaction_table">
                             @include('product.product_transaction', ['inv_settings'=>getInvoiceSettings(1)])
                         </div>
-                        <button class="btn btn-info btn-sm">Save</button>
                       </form>
                   </div>
               </div>
           </div>
           <div class="col-2 custom-pl-0">
-            <div class="card commonListHolder">
-                <div class="card-header bg-orange text-white">
-                    <h6>Total</h6>
-                </div>
-                <div class="card-body commonListBody">
-
-                </div>
-                <div class="commonListPaginate"></div>
-            </div>
+            <div class="card">
+                @include('product.product_transaction_summary')
           </div>
       </div>
-      <button onclick="addNewRow()" class="btn btn-success" style="position: fixed; top: 50%; right: 0; "><i class="fas fa-plus"></i></button>
+      <button onclick="addNewRow()" class="btn btn-success" style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
 @endsection
 
 @section('js')

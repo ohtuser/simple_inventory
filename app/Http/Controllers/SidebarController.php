@@ -19,7 +19,6 @@ class SidebarController extends Controller
             ['module_name'=>'Product Management', 'group_name'=>'Category', 'name'=>'Sub Category','icon'=> 'fas fa-bars', 'route'=>'admin.sub_category.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>0,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Product Management', 'group_name'=>'Product', 'name'=>'Product','icon'=> 'fas fa-bars', 'route'=>'admin.product.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
 
-
             ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'Create','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.create','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 

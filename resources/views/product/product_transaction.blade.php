@@ -162,6 +162,8 @@
 
 
     function calculate(){
+        let g_total = 0;
+        let total_dicount = 0;
         $('.product').each(function(){
             cur_row = $(this).attr('data-row');
             if($(this).val() != null){
@@ -181,10 +183,24 @@
                 if(manual_discount == undefined){
                     manual_discount = 0;
                 }
-                total = (parseFloat(price*qty))-parseFloat(manual_discount)-parseFloat((discount_percentage/100)*(price*qty));
+                discount = parseFloat(manual_discount)+parseFloat((discount_percentage/100)*(price*qty));
+                total = (parseFloat(price*qty))-parseFloat(discount);
+                g_total += total;
+                total_dicount += discount;
                 $(`.total${cur_row}`).val(parseFloat(total).toFixed(2));
                 console.log(price, qty, discount_percentage, manual_discount);
             }
         });
+
+        $('.sub_total').val(parseFloat(g_total).toFixed(2));
+        $('.discount').val(parseFloat(total_dicount).toFixed(2));
+        payable_amount = g_total-total_dicount;
+        $('.net_payable').val(parseFloat(payable_amount).toFixed(2));
+        pay_amount = $('.pay_amount').val();
+        if(pay_amount == undefined){
+            pay_amount = 0;
+            $('.pay_amount').val(0)
+        }
+        $('.due').val(parseFloat(payable_amount-pay_amount).toFixed(2));
     }
 </script>
