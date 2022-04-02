@@ -1,33 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Http\Request;
-
-class InventoryController extends Controller
+class CreateInvoicesTable extends Migration
 {
-    public function purchaseCreate(){
-        return view('transaction.purchase.create');
-    }
-
-    public function store(Request $request){
-        return $request->all();
-
-        $request->validate([
-            'vendor' => 'required',
-            'date' => 'required',
-            'g_total' => 'required'
-        ]);
-
-        $invoice_info = [
-            'transaction_type' => $request->transaction_type,
-            'date' => date('Y-m-d', strtotime($request->date)),
-            'party_id' => $request->vendor,
-            'invoice_no' => generateInvoice(1)
-        ];
-
-
-        $table->timestamp('date')->nullable();
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('invoices', function (Blueprint $table) {
+            $table->id();
+                $table->integer('transaction_type')->nullable()->comment('P-1, PR-2, S-3, SR-4');
+                $table->timestamp('date')->nullable();
                 $table->unsignedBigInteger('party_id')->nullable();
                 $table->string('invoice_no')->nullable();
                 $table->unsignedBigInteger('ref_invoice')->nullable();
@@ -44,5 +33,21 @@ class InventoryController extends Controller
                 $table->string('attachment')->nullable();
                 $table->string('note')->nullable();
                 $table->tinyInteger('status')->default(1)->comment('1=active, 2=inactive');
+                $table->unsignedBigInteger('created_by')->default(0);
+                $table->unsignedBigInteger('updated_by')->nullable();
+                $table->unsignedBigInteger('deleted_by')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('invoices');
     }
 }

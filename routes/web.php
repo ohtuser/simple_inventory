@@ -64,6 +64,7 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
 
     Route::name('transaction.')->prefix('transaction')->group(function(){
         Route::get('purchase/create', [InventoryController::class, 'purchaseCreate'])->name('purchase.create');
+        Route::post('store', [InventoryController::class, 'store'])->name('store');
     });
 });
 

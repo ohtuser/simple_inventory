@@ -68,13 +68,13 @@ body.modal-open {
     outline: none!important;
 }
 .select2-container{
-    z-index:1000 !important;
+    z-index:990 !important;
 }
 .select2-container--open{
-    z-index:1000
+    z-index:990
     }
 .select2-dropdown {
-    z-index: 1000;
+    z-index: 990;
 }
 .product_transaction_table{
     /* height: 300px; */
@@ -84,7 +84,7 @@ body.modal-open {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 999999999999999;
+    z-index: 991;
     background: #000;
     color: #fff;
 }

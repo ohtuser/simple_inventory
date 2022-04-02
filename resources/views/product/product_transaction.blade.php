@@ -36,7 +36,7 @@
                         <td class="text-center unit"></td>
                     @endif
                     @if (in_array(4, $pfs))
-                        <td><input type="text" value="" class="form-control text-center description" readonly="true"></td>
+                        <td><input type="text" value="" name="description[]" class="form-control text-center description" readonly="true"></td>
                     @endif
                     @if (in_array(5, $pfs))
                         <td class="text-center"><button type="button" class="btn btn-sm btn-info text-white details" style="display: none"><i class="fas fa-info"></i></button></td>
@@ -54,10 +54,10 @@
                         <td class="text-center sell_price_code"></td>
                     @endif
                     @if (in_array(10, $pfs))
-                        <td><input type="number" value="" onkeyup="calculate()" class="form-control text-center discount_percentage discount_percentage{{$trs}}" readonly="true"></td>
+                        <td><input type="number" value="" name="dc_percentage[]" onkeyup="calculate()" class="form-control text-center discount_percentage discount_percentage{{$trs}}" readonly="true"></td>
                     @endif
                     @if (in_array(11, $pfs))
-                        <td><input type="number" value="" onkeyup="calculate()" class="form-control text-center manual_discount manual_discount{{$trs}}" readonly="true"></td>
+                        <td><input type="number" value="" name="dc_manual[]" onkeyup="calculate()" class="form-control text-center manual_discount manual_discount{{$trs}}" readonly="true"></td>
                     @endif
                     @if (in_array(12, $pfs))
                         <td class="text-center product_code"></td>
@@ -171,6 +171,7 @@
                 qty = $(`.qty${cur_row}`).val();
                 discount_percentage = $(`.discount_percentage${cur_row}`).val();
                 manual_discount = $(`.manual_discount${cur_row}`).val();
+                console.log("manual_discount", manual_discount,"discount_percentage",discount_percentage);
                 if(price == undefined){
                     price = 0;
                 }
@@ -180,7 +181,7 @@
                 if(discount_percentage == undefined){
                     discount_percentage = 0;
                 }
-                if(manual_discount == undefined){
+                if(manual_discount == undefined || manual_discount == ''){
                     manual_discount = 0;
                 }
                 discount = parseFloat(manual_discount)+parseFloat((discount_percentage/100)*(price*qty));
@@ -192,9 +193,9 @@
             }
         });
 
-        $('.sub_total').val(parseFloat(g_total).toFixed(2));
+        $('.sub_total').val(parseFloat(g_total+total_dicount).toFixed(2));
         $('.discount').val(parseFloat(total_dicount).toFixed(2));
-        payable_amount = g_total-total_dicount;
+        payable_amount = g_total;
         $('.net_payable').val(parseFloat(payable_amount).toFixed(2));
         pay_amount = $('.pay_amount').val();
         if(pay_amount == undefined){
