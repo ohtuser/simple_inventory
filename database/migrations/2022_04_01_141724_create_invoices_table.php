@@ -16,7 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
                 $table->integer('transaction_type')->nullable()->comment('P-1, PR-2, S-3, SR-4');
-                $table->timestamp('date')->nullable();
+                $table->date('date')->nullable();
                 $table->unsignedBigInteger('party_id')->nullable();
                 $table->string('invoice_no')->nullable();
                 $table->unsignedBigInteger('ref_invoice')->nullable();

@@ -15,7 +15,7 @@ class Invoice extends Model
         $data = [
             'transaction_type' => $request->transaction_type,
             'date' => date('Y-m-d', strtotime($request->date)),
-            'party_id' => $request->party_id,
+            'party_id' => $request->party,
             'invoice_no' => generateInvoice(1),
             'ref_invoice' => null,
             'ref_invoice_model' => null,

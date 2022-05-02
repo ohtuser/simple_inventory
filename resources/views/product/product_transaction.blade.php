@@ -24,7 +24,11 @@
           @for($trs=1;$trs<=5;$trs++)
               <tr class="tr{{ $trs }}">
                     <td class="text-center">{{ $trs }}</td>
-                    <td width="25%"><select width="100%" name="product[]" data-row="{{ $trs }}" class="form-control product_search product"></select></td>
+                    <td width="25%">
+                        <select width="100%" name="product[]" data-row="{{ $trs }}" class="form-control product_search product">
+                            <option value=""></option>
+                        </select>
+                    </td>
 
                     @if (in_array(1, $pfs))
                         <td class="text-center local_name"></td>

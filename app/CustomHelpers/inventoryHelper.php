@@ -22,7 +22,13 @@ function generateInvoice($type){
         }else{
             return 1;
         }
-
     }
+}
 
+function discountAmountCalculator($price,$dis_per,$dis_manual = 0){
+    $amount = ($dis_per / 100) * $price;
+    if(is_numeric($dis_manual)){
+        $amount += $dis_manual;
+    }
+    return $amount;
 }

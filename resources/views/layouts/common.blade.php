@@ -109,9 +109,10 @@
                     }, 'error', 'Oppps!', result.join(""),true,null,null);
 
                 } else if (jqXHR.status == 421) {
+                    console.log(jqXHR);
                     customSweetAlert(function(){
                         console.log(jqXHR);
-                    }, 'error', 'Oppps!', jqXHR.responseJSON.message,true,null,null);
+                    }, 'error', 'Oppps!', jqXHR.responseText,true,null,null);
                 }else if (errorThrown === 'timeout') {
                     customSweetAlert(function(){
                         console.log(textStatus);

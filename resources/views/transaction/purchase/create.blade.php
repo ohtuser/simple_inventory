@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('transaction.store') }}" class="form_submit1" method="post">
+    <form action="{{ route('transaction.store') }}" class="form_submit" method="post">
         {{-- <div class="card-body"> --}}
             @csrf
         <div class="row">
@@ -16,11 +16,12 @@
                     <div class="card-body">
                         {{-- <input type="hidden" name="row_id" class="row_id"> --}}
                         <input type="hidden" name="transaction_type" value="1" class="">
+                        <input type="hidden" name="in_out" value="1" class="">
                         <div class="row mb-3">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Vendor</label>
-                                    <select class="form-control vendor_search" name="vendor" id=""></select>
+                                    <select class="form-control vendor_search" name="party" id=""></select>
                                 </div>
                             </div>
                             <div class="col-3">
