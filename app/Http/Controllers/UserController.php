@@ -20,8 +20,6 @@ class UserController extends Controller
         $paginate = $data->links();
 
         $paginate = $paginate->render();
-        // $paginate = $this->getPaginate($data->links->get());
-        // $paginate = '';
         return response()->json(['body'=>$body, 'paginate'=>$paginate]);
     }
 

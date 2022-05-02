@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class InventoryController extends Controller
 {
-    public function purchaseCreate()
-    {
-        return view('transaction.purchase.create');
-    }
-
     public function store(Request $request)
     {
         // return $request->all();
@@ -30,7 +25,9 @@ class InventoryController extends Controller
         $qty_array = array_filter($request->qty, 'strlen');
         $price_array = array_filter($request->price, 'strlen');
         if((count($product_array) != count($qty_array)) || (count($product_array) != count($price_array))){
-            return response('Some Information Missing', 421);
+            return response()->json([
+                'message' => 'Some Information Is Missing',
+            ],421);
         }
 
 
@@ -44,5 +41,15 @@ class InventoryController extends Controller
             dd($e);
         }
 
+    }
+
+    public function purchaseCreate()
+    {
+        return view('transaction.purchase.create');
+    }
+
+    public function purchaseList(){
+        $data['list'] = Invoice::with('get_party')->where('transaction_type', 1)->paginate(15);
+        return view('transaction.purchase.list', $data);
     }
 }

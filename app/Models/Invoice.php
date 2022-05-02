@@ -38,4 +38,12 @@ class Invoice extends Model
             return Invoice::create($data);
         }
     }
+
+
+
+    // ============================= Relations =============================
+
+    public function get_party(){
+        return $this->belongsTo(User::class, 'party_id');
+    }
 }

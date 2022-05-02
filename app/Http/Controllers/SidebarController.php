@@ -20,6 +20,7 @@ class SidebarController extends Controller
             ['module_name'=>'Product Management', 'group_name'=>'Product', 'name'=>'Product','icon'=> 'fas fa-bars', 'route'=>'admin.product.index','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
 
             ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'Create','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.create','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
+            ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'List','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.list','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 
         return 'success';
@@ -36,12 +37,12 @@ class SidebarController extends Controller
             $groups = $info->groupBy('group_name');
             foreach($groups as $group){
                 if(count($group) > 1){
-                    $sidebar_html .= '<a class="nav-link py-0 collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    $sidebar_html .= '<a class="nav-link py-0 collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts'.$group[0]->id.'" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fa-angle-down '.$group[0]->icon.'"></i></div>
                             '.$group[0]->group_name.'
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseLayouts'.$group[0]->id.'" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">';
                             foreach($group as $route){
                                 $sidebar_html .= '<a class="nav-link py-0" href="'.route($route->route).'">'.$route->name.'</a>';
