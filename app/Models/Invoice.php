@@ -46,4 +46,8 @@ class Invoice extends Model
     public function get_party(){
         return $this->belongsTo(User::class, 'party_id');
     }
+
+    public function get_transactions(){
+        return $this->hasMany(InvoiceTransaction::class, 'invoice_id');
+    }
 }

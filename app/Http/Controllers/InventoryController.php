@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class InventoryController extends Controller
 {
+    // ================================= common =================================
     public function store(Request $request)
     {
         // return $request->all();
@@ -43,6 +44,13 @@ class InventoryController extends Controller
 
     }
 
+    public function printInvoice(Request $request){
+        $data['inv'] = Invoice::with('get_transactions','get_party')->findOrFail($request->id);
+        $data['content'] = getInvoiceSettings($data['inv']->transaction_type);
+        return view('transaction.purchase.common.print_invoice', $data);
+    }
+
+    //================================= purchase =================================
     public function purchaseCreate()
     {
         return view('transaction.purchase.create');

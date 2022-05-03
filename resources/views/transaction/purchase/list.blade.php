@@ -30,6 +30,7 @@
                             <th>Amount</th>
                             <th>Paid</th>
                             <th>Due</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                       <tbody>
@@ -44,6 +45,7 @@
                                   <td>{{ $l->payable }}</td>
                                   <td>{{ $l->pay }}</td>
                                   <td>{{ $l->due }}</td>
+                                  <td><a href="{{ route('transaction.print',['id'=>$l->id]) }}" target="_blank">Print</a></td>
                               </tr>
                           @endforeach
                       </tbody>

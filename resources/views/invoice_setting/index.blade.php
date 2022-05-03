@@ -236,7 +236,7 @@
                                 <div class="col-md-3 form-check mt-2">
                                     <label class=" " for="i_qty" title="2">Qty</label> <br>
                                     <div>
-                                        <input type="checkbox" class="form-check-input" name="invoice_print_field_show[]" id="i_qty" {{ in_array(6, $ifs) ? 'checked' : '' }} value="2">
+                                        <input type="checkbox" class="form-check-input" name="invoice_print_field_show[]" id="i_qty" {{ in_array(6, $ifs) ? 'checked' : '' }} value="6">
                                         <input type="text" style="width: 90%" class="form-control" name="invoice_print_field_label[]" id="" value="{{ $ifl[5] ? $ifl[5] : 'Qty'  }}">
                                     </div>
                                 </div>

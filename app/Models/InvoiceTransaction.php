@@ -39,4 +39,10 @@ class InvoiceTransaction extends Model
         }
         return true;
     }
+
+    // ============================= Relations =============================
+
+    public function product(){
+        return $this->belongsTo(Products::class, 'product_id');
+    }
 }
