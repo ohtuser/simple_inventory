@@ -45,7 +45,7 @@ class InventoryController extends Controller
     }
 
     public function printInvoice(Request $request){
-        $data['inv'] = Invoice::with('get_transactions','get_party')->findOrFail($request->id);
+        $data['inv'] = Invoice::with('get_transactions.product.getUnit','get_transactions.product.getStock','get_party')->findOrFail($request->id);
         $data['content'] = getInvoiceSettings($data['inv']->transaction_type);
         return view('transaction.purchase.common.print_invoice', $data);
     }

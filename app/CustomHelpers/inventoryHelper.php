@@ -9,10 +9,11 @@ function getInvoiceSettings($id){
 
 function generateInvoice($type){
     $invoice_setting = getInvoiceSettings($type);
-    $pre_inv = Invoice::where('transaction_type', $type)->orderBy('id','desc')->first();
+    $pre_inv = Invoice::where('transaction_type', $type)->where('invoice_no', '!=', null)->orderBy('id','desc')->first();
     if($pre_inv){
         if($invoice_setting){
-
+            $trimmed = str_replace($invoice_setting->invoice_prefix, '', $pre_inv->invoice_no);
+            return $invoice_setting->invoice_prefix.intval($trimmed)+1;
         }else{
             return ($pre_inv->invoice_no+1);
         }

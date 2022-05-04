@@ -58,4 +58,9 @@ class Products extends Model
     public function getUnit(){
         return $this->belongsTo(Unit::class, 'unit');
     }
+
+    public function getStock()
+    {
+        return $this->hasOne(StoreTransactionView::class, 'product_id', 'id');
+    }
 }
