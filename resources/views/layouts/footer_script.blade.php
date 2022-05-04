@@ -43,6 +43,7 @@
 
     remote_select('product_search','common/product-live-search', true, "Select Product", true);
     remote_select('vendor_search','common/vendor-live-search', true, "Select Vendor", false);
+    remote_select('customer_search','common/customer-live-search', true, "Select Customer", false);
 
     function remote_select(cls, url="", clear = false,placeholder="",is_product=false) {
         $('.'+cls).select2({

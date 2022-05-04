@@ -83,6 +83,9 @@
     let trs = 6;
     let pfs = @json($pfs);
     let pfsl = @json($pfsl);
+    let buy_price_show_type = [1,2];
+    let sell_price_show_type = [3,4];
+    let transaction_type = @json($inv_settings->id);
     function addNewRow(){
         // console.log("-----------", pfs);
         let rowHtml = `
@@ -141,10 +144,13 @@
 
 
     function setProductInfo(product_id,row){
+        let product_price_set = 0;
         customAjaxCall(function(res){
             console.log("p", product_id,row);
             console.log("res", res);
             info = res.info;
+            product_price_set = buy_price_show_type.includes(transaction_type) ? info.buy_price : (sell_price_show_type.includes(transaction_type) ? info.sell_price: 0 );
+
             $(`.tr${row}`).children('.local_name').text(info.local_name);
             $(`.tr${row}`).children('.avail_qty').text(0);
             $(`.tr${row}`).children('.unit').text(info.get_unit.name);
@@ -158,7 +164,7 @@
             $(`.tr${row}`).children().children('.manual_discount').attr('readonly', false).val(0);
             $(`.tr${row}`).children('.product_code').text(info.product_code);
             $(`.tr${row}`).children().children('.qty').attr('readonly', false).val(0);
-            $(`.tr${row}`).children().children('.price').attr('readonly', false).val(info.buy_price);
+            $(`.tr${row}`).children().children('.price').attr('readonly', false).val(product_price_set);
             $(`.tr${row}`).children().children('.total').val(0);
             calculate();
         }, 'get', "{{ route('common.get_product_details') }}", {transaction: 1,id:product_id});

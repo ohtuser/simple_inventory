@@ -74,6 +74,14 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
         // purchase return
         Route::get('purchase-return/create', [InventoryController::class, 'purchaseReturnCreate'])->name('purchase_return.create');
         Route::get('purchase-return/list', [InventoryController::class, 'purchaseReturnList'])->name('purchase_return.list');
+
+        // sell
+        Route::get('sell/create', [InventoryController::class, 'sellCreate'])->name('sell.create');
+        Route::get('sell/list', [InventoryController::class, 'sellList'])->name('sell.list');
+
+        // sell return
+        Route::get('sell-return/create', [InventoryController::class, 'sellReturnCreate'])->name('sell_return.create');
+        Route::get('sell-return/list', [InventoryController::class, 'sellReturnList'])->name('sell_return.list');
     });
 });
 
@@ -106,6 +114,7 @@ Route::name('common.')->prefix('common')->group(function(){
 
     // live search
     Route::get('vendor-live-search', [CommonProductController::class, 'vendorLiveSearch'])->name('vendor_live_search');
+    Route::get('customer-live-search', [CommonProductController::class, 'customerLiveSearch'])->name('customer_live_search');
     Route::get('product-live-search', [CommonProductController::class, 'productLiveSearch'])->name('product_live_search');
 });
 

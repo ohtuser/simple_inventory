@@ -187,19 +187,19 @@
                                         <td>{{ $t->price }}</td>
                                     @endif
                                     {{-- total (before discount) --}}
+                                    @php
+                                        $before_discount = $t->price*$t->quantity;
+                                        $subtotal += $before_discount;
+                                    @endphp
                                     @if (in_array(7, $pfs))
-                                        @php
-                                            $before_discount = $t->price*$t->quantity;
-                                            $subtotal += $before_discount;
-                                        @endphp
                                         <td>{{ $before_discount }}</td>
                                     @endif
                                     {{-- discount  --}}
+                                    @php
+                                        $discount = $t->dc_amount*$t->quantity;
+                                        $total_discount += $discount;
+                                    @endphp
                                     @if (in_array(8, $pfs))
-                                        @php
-                                            $discount = $t->dc_amount*$t->quantity;
-                                            $total_discount += $discount;
-                                        @endphp
                                         <td>{{ $discount }}</td>
                                     @endif
                                     {{-- Net Total  --}}

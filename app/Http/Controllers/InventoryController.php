@@ -71,4 +71,26 @@ class InventoryController extends Controller
         $data['list'] = Invoice::with('get_party')->where('transaction_type', 2)->paginate(15);
         return view('transaction.purchase_return.list', $data);
     }
+
+    //================================= sell =================================
+    public function sellCreate()
+    {
+        return view('transaction.sell.create');
+    }
+
+    public function sellList(){
+        $data['list'] = Invoice::with('get_party')->where('transaction_type', 3)->paginate(15);
+        return view('transaction.sell.list', $data);
+    }
+
+    //================================= sell return =================================
+    public function sellReturnCreate()
+    {
+        return view('transaction.sell_return.create');
+    }
+
+    public function sellReturnList(){
+        $data['list'] = Invoice::with('get_party')->where('transaction_type', 4)->paginate(15);
+        return view('transaction.sell_return.list', $data);
+    }
 }
