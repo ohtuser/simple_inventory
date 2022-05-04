@@ -47,7 +47,7 @@ class InventoryController extends Controller
     public function printInvoice(Request $request){
         $data['inv'] = Invoice::with('get_transactions.product.getUnit','get_transactions.product.getStock','get_party')->findOrFail($request->id);
         $data['content'] = getInvoiceSettings($data['inv']->transaction_type);
-        return view('transaction.purchase.common.print_invoice', $data);
+        return view('transaction.common.print_invoice', $data);
     }
 
     //================================= purchase =================================
@@ -59,5 +59,16 @@ class InventoryController extends Controller
     public function purchaseList(){
         $data['list'] = Invoice::with('get_party')->where('transaction_type', 1)->paginate(15);
         return view('transaction.purchase.list', $data);
+    }
+
+    //================================= purchase return =================================
+    public function purchaseReturnCreate()
+    {
+        return view('transaction.purchase_return.create');
+    }
+
+    public function purchaseReturnList(){
+        $data['list'] = Invoice::with('get_party')->where('transaction_type', 2)->paginate(15);
+        return view('transaction.purchase_return.list', $data);
     }
 }

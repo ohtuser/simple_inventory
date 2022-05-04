@@ -11,12 +11,12 @@
             <div class="col-10">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        <h6>Purchase (Stock In)</h6>
+                        <h6>Purchase Return (Stock Out)</h6>
                     </div>
                     <div class="card-body">
                         {{-- <input type="hidden" name="row_id" class="row_id"> --}}
-                        <input type="hidden" name="transaction_type" value="1" class="">
-                        <input type="hidden" name="in_out" value="1" class="">
+                        <input type="hidden" name="transaction_type" value="2" class="">
+                        <input type="hidden" name="in_out" value="2" class="">
                         <div class="row mb-3">
                             <div class="col-3">
                                 <div class="form-group">
@@ -58,7 +58,7 @@
 
                         <div class="row product_transaction_table">
                             @include('product.product_transaction', [
-                                'inv_settings' => getInvoiceSettings(1),
+                                'inv_settings' => getInvoiceSettings(2),
                             ])
                         </div>
 
@@ -72,8 +72,7 @@
             </div>
         </div>
     </form>
-    <button onclick="addNewRow()" class="btn btn-success"
-        style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
+    <button onclick="addNewRow()" class="btn btn-success" style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
 @endsection
 
 @section('js')

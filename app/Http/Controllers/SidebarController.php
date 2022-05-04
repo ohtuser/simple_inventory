@@ -21,6 +21,9 @@ class SidebarController extends Controller
 
             ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'Create','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.create','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
             ['module_name'=>'Transactions', 'group_name'=>'Purchase', 'name'=>'List','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase.list','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
+
+            ['module_name'=>'Transactions', 'group_name'=>'Purchase Return', 'name'=>'Create','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase_return.create','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
+            ['module_name'=>'Transactions', 'group_name'=>'Purchase Return', 'name'=>'List','icon'=> 'fas fa-bars', 'route'=>'transaction.purchase_return.list','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 
         return 'success';

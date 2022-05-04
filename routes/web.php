@@ -70,6 +70,10 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
         // purchase
         Route::get('purchase/create', [InventoryController::class, 'purchaseCreate'])->name('purchase.create');
         Route::get('purchase/list', [InventoryController::class, 'purchaseList'])->name('purchase.list');
+
+        // purchase return
+        Route::get('purchase-return/create', [InventoryController::class, 'purchaseReturnCreate'])->name('purchase_return.create');
+        Route::get('purchase-return/list', [InventoryController::class, 'purchaseReturnList'])->name('purchase_return.list');
     });
 });
 
