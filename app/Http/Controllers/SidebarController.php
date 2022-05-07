@@ -32,7 +32,7 @@ class SidebarController extends Controller
             ['module_name'=>'Transactions', 'group_name'=>'Sell Return', 'name'=>'List','icon'=> 'fas fa-bars', 'route'=>'transaction.sell_return.list','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
 
             // reports
-            ['module_name'=>'Reports', 'group_name'=>'Inv Report', 'name'=>'Stock Report','icon'=> 'fas fa-bars', 'route'=>'reports.inv_reports.stock_reports','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
+            ['module_name'=>'Reports', 'group_name'=>'Inv Report', 'name'=>'Stock Report','icon'=> 'fas fa-bars', 'route'=>'reports.inv_reports.stock_report','sort'=>1, 'permission_admin'=>1,'permission_stuff'=>1,'permission_customer'=>0,'status'=>1],
         ]);
 
         return 'success';

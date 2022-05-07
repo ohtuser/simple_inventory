@@ -16,6 +16,10 @@ class ProductCategory extends Model
         return $this->belongsTo(self::class, 'parent');
     }
 
+    function getSubCategory(){
+        return $this->hasMany(self::class, 'parent');
+    }
+
     public static function storeOrUpdate($request){
         $data = [
             'name' => $request->name,

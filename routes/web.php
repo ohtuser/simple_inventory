@@ -9,6 +9,7 @@ use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\CommonProductController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\UnitController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -82,6 +83,13 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
         // sell return
         Route::get('sell-return/create', [InventoryController::class, 'sellReturnCreate'])->name('sell_return.create');
         Route::get('sell-return/list', [InventoryController::class, 'sellReturnList'])->name('sell_return.list');
+    });
+
+    // Reports
+    Route::name('reports.')->prefix('reports')->group(function(){
+        Route::name('inv_reports.')->prefix('inv-reports')->group(function(){
+            Route::get('stock-report', [ReportController::class, 'stockReport'])->name('stock_report');
+        });
     });
 });
 
