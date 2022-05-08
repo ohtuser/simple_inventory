@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InvoiceSettingController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\CommonProductController;
@@ -26,34 +27,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware'=>'admin_or_stuff_or_customer'], function(){
+Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+
+    Route::name('customer.')->prefix('customer')->group(function () {
+        Route::name('order.')->prefix('order')->group(function () {
+            Route::get('create', [OrderController::class, 'create'])->name('create');
+            Route::get('index', [OrderController::class, 'index'])->name('index');
+        });
+    });
 });
 
-Route::group(['middleware'=>'admin_or_stuff'], function(){
-    Route::name('admin.')->prefix('admin')->group(function(){
-        Route::name('party.')->prefix('party')->group(function(){
+Route::group(['middleware' => 'admin_or_stuff'], function () {
+    Route::name('admin.')->prefix('admin')->group(function () {
+        Route::name('party.')->prefix('party')->group(function () {
             Route::get('/', [PartyController::class, 'index'])->name('index');
             Route::get('/list', [PartyController::class, 'list'])->name('list');
             Route::post('/store', [PartyController::class, 'store'])->name('store');
             Route::get('/edit', [PartyController::class, 'edit'])->name('edit');
         });
 
-        Route::name('unit.')->prefix('unit')->group(function(){
+        Route::name('unit.')->prefix('unit')->group(function () {
             Route::get('/', [UnitController::class, 'index'])->name('index');
             Route::get('/list', [UnitController::class, 'list'])->name('list');
             Route::post('/store', [UnitController::class, 'store'])->name('store');
             Route::get('/edit', [UnitController::class, 'edit'])->name('edit');
         });
 
-        Route::name('brand.')->prefix('brand')->group(function(){
+        Route::name('brand.')->prefix('brand')->group(function () {
             Route::get('/', [BrandController::class, 'index'])->name('index');
             Route::get('/list', [BrandController::class, 'list'])->name('list');
             Route::post('/store', [BrandController::class, 'store'])->name('store');
             Route::get('/edit', [BrandController::class, 'edit'])->name('edit');
         });
 
-        Route::name('product.')->prefix('product')->group(function(){
+        Route::name('product.')->prefix('product')->group(function () {
             Route::get('/', [ProductController::class, 'index'])->name('index');
             Route::get('/list', [ProductController::class, 'list'])->name('list');
             Route::post('/store', [ProductController::class, 'store'])->name('store');
@@ -63,7 +72,7 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
 
 
 
-    Route::name('transaction.')->prefix('transaction')->group(function(){
+    Route::name('transaction.')->prefix('transaction')->group(function () {
         // common
         Route::post('store', [InventoryController::class, 'store'])->name('store');
         Route::get('print-invoice', [InventoryController::class, 'printInvoice'])->name('print');
@@ -86,29 +95,29 @@ Route::group(['middleware'=>'admin_or_stuff'], function(){
     });
 
     // Reports
-    Route::name('reports.')->prefix('reports')->group(function(){
-        Route::name('inv_reports.')->prefix('inv-reports')->group(function(){
+    Route::name('reports.')->prefix('reports')->group(function () {
+        Route::name('inv_reports.')->prefix('inv-reports')->group(function () {
             Route::get('stock-report', [ReportController::class, 'stockReport'])->name('stock_report');
         });
     });
 });
 
 Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(function () {
-    Route::name('user.')->prefix('user')->group(function(){
+    Route::name('user.')->prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/list', [UserController::class, 'list'])->name('list');
         Route::post('/store', [UserController::class, 'store'])->name('store');
         Route::get('/edit', [UserController::class, 'edit'])->name('edit');
     });
 
-    Route::name('category.')->prefix('category')->group(function(){
+    Route::name('category.')->prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::get('/list', [CategoryController::class, 'list'])->name('list');
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::get('/edit', [CategoryController::class, 'edit'])->name('edit');
     });
 
-    Route::name('sub_category.')->prefix('sub_category')->group(function(){
+    Route::name('sub_category.')->prefix('sub_category')->group(function () {
         Route::get('/', [CategoryController::class, 'sub_category_index'])->name('index');
         Route::get('/list', [CategoryController::class, 'sub_category_list'])->name('list');
     });
@@ -116,7 +125,7 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
 
 // common routes
 
-Route::name('common.')->prefix('common')->group(function(){
+Route::name('common.')->prefix('common')->group(function () {
     Route::get('get-subcategory', [CommonProductController::class, 'getSubcategory'])->name('get_subcategory');
     Route::get('get-product-details', [CommonProductController::class, 'getProductDetails'])->name('get_product_details');
 
@@ -130,7 +139,7 @@ Route::get('invoice-setting', [InvoiceSettingController::class, 'index'])->name(
 Route::post('invoice-setting-store', [InvoiceSettingController::class, 'store'])->name('invoice_setting_store');
 
 // project setting
-Route::get('set', function(){
+Route::get('set', function () {
     Artisan::call('migrate');
     SidebarController::sidebar_write();
     return "success";
@@ -138,10 +147,8 @@ Route::get('set', function(){
 
 
 // developer helper
-Route::get('session', function(){
+Route::get('session', function () {
     return session()->all();
 });
 
 Route::get('sidebar_write', [SidebarController::class, 'sidebar_write']);
-
-

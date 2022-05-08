@@ -12,25 +12,33 @@ class ProductCategory extends Model
 
     protected $guarded = [];
 
-    function getCategory(){
+    function getCategory()
+    {
         return $this->belongsTo(self::class, 'parent');
     }
 
-    function getSubCategory(){
+    function getSubCategory()
+    {
         return $this->hasMany(self::class, 'parent');
     }
 
-    public static function storeOrUpdate($request){
+    public static function storeOrUpdate($request)
+    {
         $data = [
             'name' => $request->name,
             'parent' => $request->parent,
         ];
         // dd($request);
-        if($request->row_id){
+        if ($request->row_id) {
             self::find($request->row_id)->update($data);
-        }else{
+        } else {
             self::create($data);
         }
         return true;
+    }
+
+    function getProductsSubCatWise()
+    {
+        return $this->hasMany(Products::class, 'sub_category');
     }
 }
