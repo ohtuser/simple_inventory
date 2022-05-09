@@ -1,23 +1,28 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
 
-function getProjectName(){
+function getProjectName()
+{
     return "Simple Inventory";
 }
 
-function get_guard(){
-    $guards=array_keys(config('auth.guards'));
+function get_guard()
+{
+    $guards = array_keys(config('auth.guards'));
     // return $guards;
-    $except=['web','api'];
-    $filteredGuards=array_diff($guards,$except);
-    foreach($filteredGuards as $guard){
-         if(Auth::guard($guard)->check())
-            {return $guard;}
+    $except = ['web', 'api'];
+    $filteredGuards = array_diff($guards, $except);
+    foreach ($filteredGuards as $guard) {
+        if (Auth::guard($guard)->check()) {
+            return $guard;
+        }
     }
     return null;
 }
 
-function requestSuccess($message='',$description='',$redirectTo='closeAndModalHide',$timer=null,$call='',$buttonShow=false){
+function requestSuccess($message = '', $description = '', $redirectTo = 'closeAndModalHide', $timer = null, $call = '', $buttonShow = false)
+{
     return (object)[
         'buttonShow' => $buttonShow,
         'timer' => $timer,
@@ -28,24 +33,27 @@ function requestSuccess($message='',$description='',$redirectTo='closeAndModalHi
     ];
 }
 
-function user(){
+function user()
+{
     return session()->get('auth');
 }
 
-function userTypes($type){
+function userTypes($type)
+{
     $typeArr = [
-        '1'=> 'Admin',
+        '1' => 'Admin',
         '2' => 'Stuff',
         '3' => 'Customer',
         '4' => 'Vendor',
         '5' => 'Both (Customer&Vendor)'
     ];
-    if($type){
+    if ($type) {
         return $typeArr[$type];
     }
     return $typeArr;
 }
 
-function getUserType(){
+function getUserType()
+{
     return userTypes(user()->user_type);
 }

@@ -34,6 +34,7 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::name('customer.')->prefix('customer')->group(function () {
         Route::name('order.')->prefix('order')->group(function () {
             Route::get('create', [OrderController::class, 'create'])->name('create');
+            Route::post('store', [OrderController::class, 'store'])->name('store');
             Route::get('index', [OrderController::class, 'index'])->name('index');
         });
     });
