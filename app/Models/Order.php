@@ -15,4 +15,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
+
+    public function orderedBy()
+    {
+        return $this->belongsTo(User::class, 'party_id');
+    }
 }

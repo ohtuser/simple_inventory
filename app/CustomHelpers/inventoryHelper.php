@@ -48,3 +48,26 @@ function getOrderNumber()
         return 'ORD-1';
     }
 }
+
+function getOrderStatus($status = null, $with_badge = null)
+{
+    $arr = [
+        1 => 'Ordered',
+        2 => 'Delivered',
+        3 => 'Cancelled'
+    ];
+    if ($status) {
+        if ($with_badge) {
+            if ($status == 1) {
+                return '<span class="badge bg-primary">Ordered</span>';
+            } else if ($status == 2) {
+                return '<span class="badge bg-success">Delivered</span>';
+            } else {
+                return '<span class="badge bg-danger">Cancelled</span>';
+            }
+        } else
+            return $arr[$status];
+    } else {
+        return $arr;
+    }
+}

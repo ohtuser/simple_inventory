@@ -15,6 +15,7 @@
                                 <th>Order. No.</th>
                                 <th>Date</th>
                                 <th>Total Product</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -25,8 +26,10 @@
                                     <td>{{ $l->order_number }}</td>
                                     <td>{{ date('d-m-Y', strtotime($l->created_at)) }}</td>
                                     <td>{{ count($l->getOrderDetails) }}</td>
-                                    <td><a href="{{ route('transaction.print', ['id' => $l->id]) }}"
-                                            target="_blank">Print</a></td>
+                                    <td>{!! getOrderStatus($l->status, 1) !!}</td>
+                                    <td><a href="{{ route('customer.order.print', ['id' => $l->id]) }}"
+                                            target="_blank">Print</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

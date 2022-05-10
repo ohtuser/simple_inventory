@@ -36,6 +36,7 @@ class OrderController extends Controller
         } else {
             $order = Order::create([
                 'party_id' => user()->id,
+                'status' => 1,
                 'order_number' => getOrderNumber()
             ]);
             foreach ($added_product as $product => $qty) {
@@ -48,5 +49,11 @@ class OrderController extends Controller
 
             return response()->json(requestSuccess('Order Done', '', 'close', 1000, ''), 200);
         }
+    }
+
+    public function print(Request $request)
+    {
+        $data['order_info'] = Order::with('getOrderDetails.getProduct.getBrand', 'getOrderDetails.getProduct.getUnit', 'orderedBy')->findOrFail($request->id);
+        return view('order.print', $data);
     }
 }

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('party_id');
             $table->string('order_number');
+            $table->tinyInteger('status')->comment('1=ordered,2=deliverde,3=cancelled');
             $table->timestamps();
         });
     }
