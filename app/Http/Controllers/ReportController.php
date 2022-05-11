@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\Customer;
+use App\Models\Invoice;
 use App\Models\ProductCategory;
 use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -22,5 +25,11 @@ class ReportController extends Controller
         $data['list'] = $list->get();
         // return $data['list'];
         return view('reports.inv_reports.stock_report', $data);
+    }
+
+    public function customerWiseDue()
+    {
+        $data['invoice'] = Invoice::with('get_party')->whereIn('transaction_type', [3, 4])->where('due', '!=', 0)->get();
+        return view('reports.inv_reports.customer_due_report', $data);
     }
 }

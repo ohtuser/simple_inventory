@@ -109,6 +109,7 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
     Route::name('reports.')->prefix('reports')->group(function () {
         Route::name('inv_reports.')->prefix('inv-reports')->group(function () {
             Route::get('stock-report', [ReportController::class, 'stockReport'])->name('stock_report');
+            Route::get('due-report', [ReportController::class, 'customerWiseDue'])->name('custome_wWise_due');
         });
     });
 });

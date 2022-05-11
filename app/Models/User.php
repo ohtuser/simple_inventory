@@ -44,22 +44,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function storeOrUpdate($request){
+    public static function storeOrUpdate($request)
+    {
         $data = [
             'user_type' => $request->type,
             'name' => $request->name,
             'email' => $request->email,
         ];
         // dd($request);
-        if($request->row_id){
-            if($request->password){
+        if ($request->row_id) {
+            if ($request->password) {
                 $data['password'] = Hash::make($request->password);
             }
             User::find($request->row_id)->update($data);
-        }else{
+        } else {
             $data['password'] = Hash::make($request->password);
             User::create($data);
         }
         return true;
+    }
+
+    public function getInvoice()
+    {
+        return $this->hasMany(Invoice::class, 'party_id');
     }
 }
