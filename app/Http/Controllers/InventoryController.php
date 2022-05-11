@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceTransaction;
+use App\Models\Order;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,8 +14,6 @@ class InventoryController extends Controller
     // ================================= common =================================
     public function store(Request $request)
     {
-        // return $request->all();
-
         $request->validate([
             'party' => 'required',
             'date' => 'required',
@@ -76,8 +75,12 @@ class InventoryController extends Controller
     }
 
     //================================= sell =================================
-    public function sellCreate()
+    public function sellCreate(Request $request)
     {
+        if ($request->order_id) {
+            $order = Order::with('getOrderDetails.getProduct.getUnit', 'getOrderDetails.getProduct.getStock')->findOrfail($request->order_id);
+            return view('transaction.sell.create', compact('order'));
+        }
         return view('transaction.sell.create');
     }
 

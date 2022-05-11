@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmiOrderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
@@ -39,6 +40,10 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
             Route::get('print', [OrderController::class, 'print'])->name('print');
         });
     });
+
+    Route::name('transaction.')->prefix('transaction')->group(function () {
+        Route::get('print-invoice', [InventoryController::class, 'printInvoice'])->name('print');
+    });
 });
 
 Route::group(['middleware' => 'admin_or_stuff'], function () {
@@ -70,6 +75,10 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
             Route::post('/store', [ProductController::class, 'store'])->name('store');
             Route::get('/edit', [ProductController::class, 'edit'])->name('edit');
         });
+
+        Route::name('order.')->prefix('order')->group(function () {
+            Route::get('/', [AdmiOrderController::class, 'index'])->name('index');
+        });
     });
 
 
@@ -77,7 +86,7 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
     Route::name('transaction.')->prefix('transaction')->group(function () {
         // common
         Route::post('store', [InventoryController::class, 'store'])->name('store');
-        Route::get('print-invoice', [InventoryController::class, 'printInvoice'])->name('print');
+
 
         // purchase
         Route::get('purchase/create', [InventoryController::class, 'purchaseCreate'])->name('purchase.create');

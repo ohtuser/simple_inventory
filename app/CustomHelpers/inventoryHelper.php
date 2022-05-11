@@ -59,15 +59,30 @@ function getOrderStatus($status = null, $with_badge = null)
     if ($status) {
         if ($with_badge) {
             if ($status == 1) {
-                return '<span class="badge bg-primary">Ordered</span>';
+                return '<span class="badge bg-primary text-light">Ordered</span>';
             } else if ($status == 2) {
-                return '<span class="badge bg-success">Delivered</span>';
+                return '<span class="badge bg-success text-light">Delivered</span>';
             } else {
-                return '<span class="badge bg-danger">Cancelled</span>';
+                return '<span class="badge bg-danger text-light">Cancelled</span>';
             }
         } else
             return $arr[$status];
     } else {
         return $arr;
     }
+}
+
+function getRefInvoice($model, $id, $feild_name)
+{
+    $info = $model::find($id);
+    if ($info) {
+        return $info->$feild_name;
+    } else {
+        return '';
+    }
+}
+
+function getSellInvoiceOfOrder($id)
+{
+    return Invoice::where('ref_invoice', $id)->first();
 }

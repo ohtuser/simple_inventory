@@ -50,17 +50,24 @@
 
 <body>
     @php
-        $pfs = $content->invoice_print_field_show != "" ? explode(',',$content->invoice_print_field_show) : explode(',',',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,');
+        $pfs = $content->invoice_print_field_show != '' ? explode(',', $content->invoice_print_field_show) : explode(',', ',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,');
         $pfsl = explode(',', $content->invoice_print_field_show_label);
     @endphp
     <div class="col-12 padding">
         <div class="card">
             <div class="card-header p-4">
                 {{-- <a class="pt-2 d-inline-block" href="index.html" data-abc="true">BBBootstrap.com</a> --}}
+                <div class="float-right">
+                    @if ($inv->ref_invoice)
+                        <h3>Ref Invoice:
+                            {{ getRefInvoice($inv->ref_invoice_model, $inv->ref_invoice, 'order_number') }}</h3>
+                    @endif
+                </div>
                 <div class="float-left">
                     <h3 class="mb-0">Invoice: {{ $inv->invoice_no }}</h3>
                     Date: {{ date('d M, Y', strtotime($inv->date)) }}
                 </div>
+
             </div>
             <div class="card-body">
                 {!! $content->invoice_header !!}
@@ -101,7 +108,7 @@
                             @if (in_array(14, $pfs))
                                 <th>{{ $pfsl[13] }}</th>
                             @endif
-                            {{-- sell price code  --}}
+                            {{-- sell price code --}}
                             @if (in_array(15, $pfs))
                                 <th>{{ $pfsl[14] }}</th>
                             @endif
@@ -121,11 +128,11 @@
                             @if (in_array(7, $pfs))
                                 <th>{{ $pfsl[6] }}</th>
                             @endif
-                            {{-- discount  --}}
+                            {{-- discount --}}
                             @if (in_array(8, $pfs))
                                 <th>{{ $pfsl[7] }}</th>
                             @endif
-                            {{-- Net Total  --}}
+                            {{-- Net Total --}}
                             @if (in_array(9, $pfs))
                                 <th>{{ $pfsl[8] }}</th>
                             @endif
@@ -135,9 +142,9 @@
                                 $total_discount = 0;
                                 $subtotal = 0;
                             @endphp
-                            @foreach ($inv->get_transactions as $key=>$t)
+                            @foreach ($inv->get_transactions as $key => $t)
                                 <tr>
-                                    <td class="text-center">{{ $key+1 }}</td>
+                                    <td class="text-center">{{ $key + 1 }}</td>
                                     {{-- name --}}
                                     @if (in_array(1, $pfs))
                                         <td>{{ $t->product->name }}</td>
@@ -170,13 +177,13 @@
                                     @if (in_array(14, $pfs))
                                         <td>{{ $t->product->sell_price }}</td>
                                     @endif
-                                    {{-- sell price code  --}}
+                                    {{-- sell price code --}}
                                     @if (in_array(15, $pfs))
                                         <td>{{ $t->product->sell_price_code }}</td>
                                     @endif
                                     {{-- avail qty --}}
                                     @if (in_array(10, $pfs))
-                                        <th>{{ $t->product->getStock ? $t->product->getStock->avail : 'N/A'  }}</th>
+                                        <th>{{ $t->product->getStock ? $t->product->getStock->avail : 'N/A' }}</th>
                                     @endif
                                     {{-- qty --}}
                                     @if (in_array(6, $pfs))
@@ -188,23 +195,23 @@
                                     @endif
                                     {{-- total (before discount) --}}
                                     @php
-                                        $before_discount = $t->price*$t->quantity;
+                                        $before_discount = $t->price * $t->quantity;
                                         $subtotal += $before_discount;
                                     @endphp
                                     @if (in_array(7, $pfs))
                                         <td>{{ $before_discount }}</td>
                                     @endif
-                                    {{-- discount  --}}
+                                    {{-- discount --}}
                                     @php
-                                        $discount = $t->dc_amount*$t->quantity;
+                                        $discount = $t->dc_amount * $t->quantity;
                                         $total_discount += $discount;
                                     @endphp
                                     @if (in_array(8, $pfs))
                                         <td>{{ $discount }}</td>
                                     @endif
-                                    {{-- Net Total  --}}
+                                    {{-- Net Total --}}
                                     @if (in_array(9, $pfs))
-                                        <th>{{ $t->price_after_discount*$t->quantity }}</th>
+                                        <th>{{ $t->price_after_discount * $t->quantity }}</th>
                                     @endif
                                 </tr>
                             @endforeach
@@ -234,7 +241,7 @@
                                         <strong class="text-dark text-right d-block">Payable : </strong>
                                     </td>
                                     <td class="right">
-                                        <strong class="text-dark">{{ $subtotal-$total_discount }}</strong>
+                                        <strong class="text-dark">{{ $subtotal - $total_discount }}</strong>
                                     </td>
                                 </tr>
                             </tbody>

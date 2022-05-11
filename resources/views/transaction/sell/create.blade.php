@@ -6,28 +6,43 @@
 @section('content')
     <form action="{{ route('transaction.store') }}" class="form_submit" method="post">
         {{-- <div class="card-body"> --}}
-            @csrf
+        @csrf
         <div class="row">
             <div class="col-10">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        <h6>Sell (Stock Out)</h6>
+                        <h6>Sell (Stock Out) @isset($order)
+                                - Delivery
+                            @endisset
+                        </h6>
                     </div>
                     <div class="card-body">
                         {{-- <input type="hidden" name="row_id" class="row_id"> --}}
                         <input type="hidden" name="transaction_type" value="3" class="">
                         <input type="hidden" name="in_out" value="2" class="">
+                        @isset($order)
+                            <input type="hidden" value="{{ $order->id }}" name="order_id">
+                        @endisset
                         <div class="row mb-3">
+
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="">Customer</label>
-                                    <select class="form-control customer_search" name="party" id=""></select>
+                                    <label for="">Customer</label><br>
+                                    @isset($order)
+                                        <input type="hidden" name="party" value="{{ $order->party_id }}">
+                                        {{ $order->orderedBy->name }}
+                                    @endisset
+                                    @empty($order)
+                                        <select class="form-control customer_search" name="party" id=""></select>
+                                    @endempty
                                 </div>
                             </div>
+
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Date</label>
-                                    <input type="text" name="date" class="form-control flatpicker" value="{{ date('d-m-Y') }}">
+                                    <input type="text" name="date" class="form-control flatpicker"
+                                        value="{{ date('d-m-Y') }}">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -45,9 +60,17 @@
                         </div>
 
                         <div class="row product_transaction_table">
+                            {{-- @isset($order) --}}
                             @include('product.product_transaction', [
                                 'inv_settings' => getInvoiceSettings(3),
                             ])
+                            {{-- @endisset --}}
+
+                            {{-- @empty($order)
+                                @include('product.product_transaction', [
+                                    'inv_settings' => getInvoiceSettings(3),
+                                ])
+                            @endempty --}}
                         </div>
 
                     </div>
@@ -60,8 +83,10 @@
             </div>
         </div>
     </form>
-    <button onclick="addNewRow()" class="btn btn-success"
-        style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
+    @empty($order)
+        <button onclick="addNewRow()" class="btn btn-success"
+            style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
+    @endempty
 @endsection
 
 @section('js')

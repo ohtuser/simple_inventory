@@ -58,6 +58,17 @@
                     <p class="mb-0"><b>Customer:</b> {{ $order_info->orderedBy->name }}</p>
                     <p class="mb-0"><b>Date:</b> {{ date('d M, Y', strtotime($order_info->created_at)) }}</p>
                     <p class="mb-0"><b>Status:</b> {!! getOrderStatus($order_info->status, 1) !!}</p>
+                    @if ($order_info->status == 2)
+                        @php
+                            $refInv = getSellInvoiceOfOrder($order_info->id);
+                        @endphp
+
+                        <p class="mb-0"><b>Invoice:</b><a class="text-light"
+                                href="{{ route('transaction.print', ['id' => $refInv->id]) }}" target="_blank">
+                                <span class="badge bg-primary">{{ $refInv->invoice_no }}</span></a>
+                        </p>
+                    @endif
+
                 </div>
             </div>
             <div class="card-body">
