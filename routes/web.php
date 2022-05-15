@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+    Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::post('profile_update', [DashboardController::class, 'profile_update'])->name('profile_update');
 
     Route::name('customer.')->prefix('customer')->group(function () {
         Route::name('order.')->prefix('order')->group(function () {

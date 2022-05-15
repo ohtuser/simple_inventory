@@ -6,7 +6,7 @@
 @section('content')
     <form action="{{ route('transaction.store') }}" class="form_submit" method="post">
         {{-- <div class="card-body"> --}}
-            @csrf
+        @csrf
         <div class="row">
             <div class="col-10">
                 <div class="card">
@@ -27,7 +27,8 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Date</label>
-                                    <input type="text" name="date" class="form-control flatpicker" value="{{ date('d-m-Y') }}">
+                                    <input type="text" name="date" class="form-control flatpicker"
+                                        value="{{ date('d-m-Y') }}">
                                 </div>
                             </div>
                             <div class="col-3">
@@ -45,15 +46,16 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Bill Date</label>
-                                    <input type="text" name="bill_date" class="form-control flatpicker" value="{{ date('d-m-Y') }}">
+                                    <input type="text" name="bill_date" class="form-control flatpicker"
+                                        value="{{ date('d-m-Y') }}">
                                 </div>
                             </div>
-                            <div class="col-3">
+                            {{-- <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Attach File</label>
                                     <input type="text" name="attach" class="form-control">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="row product_transaction_table">
@@ -72,7 +74,8 @@
             </div>
         </div>
     </form>
-    <button onclick="addNewRow()" class="btn btn-success" style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
+    <button onclick="addNewRow()" class="btn btn-success"
+        style="position: fixed; top: 50%; right: 0; display: block;width: 40px;"><i class="fas fa-plus"></i></button>
 @endsection
 
 @section('js')

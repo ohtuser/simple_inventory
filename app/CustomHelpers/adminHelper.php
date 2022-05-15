@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 function getProjectName()
 {
-    return "Simple Inventory";
+    return "Client Management System";
 }
 
 function get_guard()

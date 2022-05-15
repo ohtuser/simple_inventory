@@ -51,12 +51,12 @@
                                     <input type="text" name="ref_invoice" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-3">
+                            {{-- <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Attach File</label>
                                     <input type="text" name="attach" class="form-control">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="row product_transaction_table">
