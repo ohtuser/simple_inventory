@@ -68,6 +68,13 @@
                                 <span class="badge bg-primary">{{ $refInv->invoice_no }}</span></a>
                         </p>
                     @endif
+                    <p><b>Delivery Type: </b>
+                        @if ($order_info->delivery_type == 1)
+                            Home Delivery
+                        @else
+                            Pickup
+                        @endif
+                    </p>
 
                 </div>
             </div>

@@ -37,7 +37,8 @@ class OrderController extends Controller
             $order = Order::create([
                 'party_id' => user()->id,
                 'status' => 1,
-                'order_number' => getOrderNumber()
+                'order_number' => getOrderNumber(),
+                'delivery_type' => $request->delivery_type
             ]);
             foreach ($added_product as $product => $qty) {
                 OrderDetail::create([

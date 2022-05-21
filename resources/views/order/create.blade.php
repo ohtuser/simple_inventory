@@ -11,13 +11,18 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-info text-white">
-                    <h6>Order Create</h6>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('customer.order.store') }}" class="form_submit">
+        <form action="{{ route('customer.order.store') }}" class="form_submit">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex bg-info text-white justify-content-between">
+                        <h6>Order Create</h6>
+                        <select name="delivery_type" class="form-control select_2" style="width: 200px">
+                            <option value="1">Home Delivery</option>
+                            <option value="2">Pickup</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -61,11 +66,19 @@
                             </tbody>
                         </table>
                         <button class="btn btn-success" style="position: fixed; right: 0; top: 50%">Make Order</button>
-                    </form>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     @include('layouts.common')
+@endsection
+
+
+@section('js')
+    <script>
+        $('.select_2').select2();
+    </script>
 @endsection

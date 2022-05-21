@@ -16,7 +16,7 @@ use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\admin\auth\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login_attempt', [AuthController::class, 'loginAttempt'])->name('login_attempt');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
