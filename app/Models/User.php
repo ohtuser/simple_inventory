@@ -22,7 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_type'
+        'user_type',
+        'mobile',
+        'address'
     ];
 
     /**
@@ -50,6 +52,8 @@ class User extends Authenticatable
             'user_type' => $request->type,
             'name' => $request->name,
             'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address
         ];
         // dd($request);
         if ($request->row_id) {

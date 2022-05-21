@@ -13,6 +13,8 @@ trait ListTrait
                     <th>Name</th>
                     <th>Email</th>
                     <th>Type</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
                     <th>Action</th>
                 </tr>
             </thead><body>';
@@ -22,6 +24,8 @@ trait ListTrait
                 <td>' . $d->name . '</td>
                 <td>' . $d->email . '</td>
                 <td>' . userTypes($d->user_type) . '</td>
+                <td>' . $d->mobile . '</td>
+                <td>' . $d->address . '</td>
                 <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
             </tr>';
         }

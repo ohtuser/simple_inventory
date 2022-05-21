@@ -35,6 +35,14 @@
                                     <label for="">Password</label>
                                     <input type="text" name="password" class="form-control">
                                 </div>
+                                <div class="form-group">
+                                    <label for="">Mobile</label>
+                                    <input type="text" name="mobile" class="form-control mobile">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Address</label>
+                                    <textarea name="address" cols="30" rows="2" class="form-control address"></textarea>
+                                </div>
                                 <button class="btn btn-orange btn-sm">Save</button>
                             </form>
                         </div>
@@ -88,6 +96,8 @@
                 $('.type').val(res.info.user_type).change();
                 $('.name').val(res.info.name);
                 $('.email').val(res.info.email);
+                $('.mobile').val(res.info.mobile);
+                $('.address').text(res.info.address);
             }, 'GET', "{{ route('admin.user.edit') }}", data);
         }
     </script>
