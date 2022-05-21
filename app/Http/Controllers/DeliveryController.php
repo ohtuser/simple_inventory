@@ -30,12 +30,12 @@ class DeliveryController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:50'
         ]);
-        $message = 'Admin/Stuff Added Successfully';
+        $message = 'Deliveryman Added Successfully';
         if (!$request->row_id) {
             $request->validate([
                 'password' => 'min:3|max:30'
             ]);
-            $message = 'Admin/Stuff Updated Successfully';
+            $message = 'Deliveryman Updated Successfully';
         }
         DeliveryPerson::storeOrUpdate($request);
         return response()->json(requestSuccess($message, '', 'close', 1000, 'getUser'), 200);
