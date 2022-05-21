@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryPerson;
 use App\Models\ProductCategory;
 use App\Models\Products;
 use App\Models\User;
@@ -10,132 +11,161 @@ use Illuminate\Http\Request;
 
 class CommonProductController extends Controller
 {
-    public function getSubcategory(Request $request){
+    public function getSubcategory(Request $request)
+    {
         $category = $request->category;
         $sub_categories = ProductCategory::where('parent', $category)->get();
         return response()->json(['subcat' => $sub_categories]);
     }
 
-    public function getProductDetails(Request $request){
-        if($request->transaction){
-            $info = Products::with('getCategory','getSubCategory','getBrand','getUnit')->findOrFail($request->id);
-            return response()->json(['info'=>$info]);
+    public function getProductDetails(Request $request)
+    {
+        if ($request->transaction) {
+            $info = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
+            return response()->json(['info' => $info]);
         }
 
-        $info = Products::with('getCategory','getSubCategory','getBrand','getUnit')->findOrFail($request->id);
+        $info = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
         $returnHtml = '<div class="d-flex justify-content-center mb-2">
-                <image src="'.asset('images/product/'.$info->image).'" style="max-width: 100px;">
+                <image src="' . asset('images/product/' . $info->image) . '" style="max-width: 100px;">
             </div>';
         $returnHtml .= '<table class="table table-bordered table-striped">
             <tbody>
                 <tr>
                     <td>Name</td>
-                    <td>'.$info->name.'</td>
+                    <td>' . $info->name . '</td>
                 </tr>
                 <tr>
                     <td>Local Name</td>
-                    <td>'.($info->local_name ?? '-').'</td>
+                    <td>' . ($info->local_name ?? '-') . '</td>
                 </tr>
                 <tr>
                     <td>Category</td>
-                    <td>'.$info->getCategory->name.'</td>
+                    <td>' . $info->getCategory->name . '</td>
                 </tr>
                 <tr>
                     <td>Sub Category</td>
-                    <td>'.($info->getSubCategory->name ?? '-').'</td>
+                    <td>' . ($info->getSubCategory->name ?? '-') . '</td>
                 </tr>
                 <tr>
                     <td>Brand</td>
-                    <td>'.$info->getBrand->name.'</td>
+                    <td>' . $info->getBrand->name . '</td>
                 </tr>
                 <tr>
                     <td>Unit</td>
-                    <td>'.$info->getUnit->name.'</td>
+                    <td>' . $info->getUnit->name . '</td>
                 </tr>
                 <tr>
                     <td>Buy Price</td>
-                    <td>'.$info->buy_price.'</td>
+                    <td>' . $info->buy_price . '</td>
                 </tr>
                 <tr>
                     <td>Buy Price Code</td>
-                    <td>'.$info->buy_price_code.'</td>
+                    <td>' . $info->buy_price_code . '</td>
                 </tr>
                 <tr>
                     <td>Sell Price</td>
-                    <td>'.$info->sell_price.'</td>
+                    <td>' . $info->sell_price . '</td>
                 </tr>
                 <tr>
                     <td>Sell Price Code</td>
-                    <td>'.$info->sell_price_code.'</td>
+                    <td>' . $info->sell_price_code . '</td>
                 </tr>
                 <tr>
                     <td>Reorder Level</td>
-                    <td>'.$info->reorder_level.'</td>
+                    <td>' . $info->reorder_level . '</td>
                 </tr>
                 <tr>
                     <td>Item Group</td>
-                    <td>'.($info->item_group == 1 ? 'Consumeable' : 'Services').'</td>
+                    <td>' . ($info->item_group == 1 ? 'Consumeable' : 'Services') . '</td>
                 </tr>
                 <tr>
                     <td>Product Code</td>
-                    <td>'.$info->product_code.'</td>
+                    <td>' . $info->product_code . '</td>
                 </tr>
                 <tr>
                     <td>Serial</td>
-                    <td>'.$info->serial.'</td>
+                    <td>' . $info->serial . '</td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td>'.$info->description.'</td>
+                    <td>' . $info->description . '</td>
                 </tr>
             </tbody></table>';
-        return response()->json(['info'=>$returnHtml]);
+        return response()->json(['info' => $returnHtml]);
     }
 
-    public function vendorLiveSearch(Request $request){
+    public function vendorLiveSearch(Request $request)
+    {
         // dd($request->all);
-        $list = User::whereIn('user_type', [4,5])->where(function($q)use($request){
-            if(!empty($request->term['term']))
-                $q->where("name","like",'%'.$request->term['term'].'%');
+        $list = User::whereIn('user_type', [4, 5])->where(function ($q) use ($request) {
+            if (!empty($request->term['term']))
+                $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
-        $data=array();
+        $data = array();
 
         foreach ($list as $val) {
-            $title=$val->name;
-            $data[] = array("id" => $val->id,
-                "text" => $title);
+            $title = $val->name;
+            $data[] = array(
+                "id" => $val->id,
+                "text" => $title
+            );
         }
         return $data;
     }
 
-    public function customerLiveSearch(Request $request){
+    public function customerLiveSearch(Request $request)
+    {
         // dd($request->all);
-        $list = User::whereIn('user_type', [3,5])->where(function($q)use($request){
-            if(!empty($request->term['term']))
-                $q->where("name","like",'%'.$request->term['term'].'%');
+        $list = User::whereIn('user_type', [3, 5])->where(function ($q) use ($request) {
+            if (!empty($request->term['term']))
+                $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
-        $data=array();
+        $data = array();
 
         foreach ($list as $val) {
-            $title=$val->name;
-            $data[] = array("id" => $val->id,
-                "text" => $title);
+            $title = $val->name;
+            $data[] = array(
+                "id" => $val->id,
+                "text" => $title
+            );
         }
         return $data;
     }
 
-    public function productLiveSearch(Request $request){
-        // dd($request->all);
-        $list = Products::where(function($q)use($request){
-            if(!empty($request->term['term']))
-                $q->where("name","like",'%'.$request->term['term'].'%');
+    public function deliveryByLiveSearch(Request $request)
+    {
+        $list = DeliveryPerson::where(function ($q) use ($request) {
+            if (!empty($request->term['term']))
+                $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
-        $data=array();
+        $data = array();
 
         foreach ($list as $val) {
-            $title=$val->name;
-            $data[] = array("id" => $val->id,
-                "text" => $title);
+            $title = $val->name;
+            $data[] = array(
+                "id" => $val->id,
+                "text" => $title
+            );
+        }
+        return $data;
+    }
+
+    public function productLiveSearch(Request $request)
+    {
+        // dd($request->all);
+        $list = Products::where(function ($q) use ($request) {
+            if (!empty($request->term['term']))
+                $q->where("name", "like", '%' . $request->term['term'] . '%');
+        })->get();
+        $data = array();
+
+        foreach ($list as $val) {
+            $title = $val->name;
+            $data[] = array(
+                "id" => $val->id,
+                "text" => $title
+            );
         }
         return $data;
     }

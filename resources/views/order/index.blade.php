@@ -8,7 +8,7 @@
                     <h6>Order List</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover table-bordered inv_list">
+                    <table class="table table-hover table-bordered inv_list" id="dataTable" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Sl</th>

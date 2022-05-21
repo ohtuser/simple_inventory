@@ -3,10 +3,10 @@
 <script src="{{ asset('jquery.js') }}"></script>
 {{-- JS assets --}}
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> --}}
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/sidebar_toggle.js') }}"></script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> --}}
-<script src="{{asset('js/chart.js')}}"></script>
+<script src="{{ asset('js/chart.js') }}"></script>
 <script src="{{ asset('js/assets/charts/chart-area-demo.js') }}"></script>
 <script src="{{ asset('js/assets/charts/chart-bar-demo.js') }}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> --}}
@@ -18,6 +18,8 @@
 {{-- sweet alert 2 --}}
 {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script src="{{ asset('js/sweetalert2.js') }}"></script>
+{{-- data table --}}
+
 {{-- flatpicker --}}
 {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 <script src="{{ asset('js/flatpickr.js') }}"></script>
@@ -25,7 +27,7 @@
 @include('layouts.common');
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         $("input[type='number']").attr('onfocus', "this.select()");
 
         flatpickr(".flatpicker", {
@@ -37,37 +39,38 @@
         });
 
         let product_transaction_table_height = $('.product_transaction_table').offset().top;
-        $('.product_transaction_table').css('max-height', `calc(100vh - ${product_transaction_table_height}px)`);
-
+        $('.product_transaction_table').css('max-height',
+            `calc(100vh - ${product_transaction_table_height}px)`);
     });
 
-    remote_select('product_search','common/product-live-search', true, "Select Product", true);
-    remote_select('vendor_search','common/vendor-live-search', true, "Select Vendor", false);
-    remote_select('customer_search','common/customer-live-search', true, "Select Customer", false);
+    remote_select('product_search', 'common/product-live-search', true, "Select Product", true);
+    remote_select('vendor_search', 'common/vendor-live-search', true, "Select Vendor", false);
+    remote_select('customer_search', 'common/customer-live-search', true, "Select Customer", false);
+    remote_select('delivery_by_search', 'common/delivery-by-live-search', true, "Delivery By", false);
 
-    function remote_select(cls, url="", clear = false,placeholder="",is_product=false) {
-        $('.'+cls).select2({
+    function remote_select(cls, url = "", clear = false, placeholder = "", is_product = false) {
+        $('.' + cls).select2({
             placeholder: placeholder,
             allowClear: clear,
             minimumInputLength: 2,
             ajax: {
-                url: '/'+url,
+                url: '/' + url,
                 dataType: 'json',
                 type: "GET",
                 quietMillis: 50,
-                data: function (term) {
+                data: function(term) {
                     return {
                         // p_ids: (p_ids.length == 0 ? [0] : p_ids),
                         term: term
                     };
                 },
-                processResults: function (data) {
+                processResults: function(data) {
                     console.log(data);
                     return {
                         results: data
                     };
                 },
-                transport: function (params, success, failure) {
+                transport: function(params, success, failure) {
                     var $request = $.ajax(params);
 
                     $request.then(success);
@@ -79,5 +82,7 @@
         });
     }
 
-
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
 </script>

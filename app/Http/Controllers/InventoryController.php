@@ -21,6 +21,16 @@ class InventoryController extends Controller
             'product' => 'required'
         ]);
 
+        if ($request->order_id) {
+            $order_info = Order::find($request->order_id);
+            if ($order_info->delivery_type == 1) {
+                $request->validate([
+                    'deliveryman' => 'required'
+                ]);
+                $order_info->update(['delivered_by' => $request->deliveryman]);
+            }
+        }
+
         $product_array = array_filter($request->product, 'strlen');
         $qty_array = array_filter($request->qty, 'strlen');
         $price_array = array_filter($request->price, 'strlen');

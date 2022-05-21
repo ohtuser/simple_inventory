@@ -17,6 +17,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\auth\AuthController;
+use App\Http\Controllers\DeliveryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,6 +130,13 @@ Route::name('admin.')->prefix('admin')->middleware('admin:admin')->group(functio
         Route::get('/edit', [UserController::class, 'edit'])->name('edit');
     });
 
+    Route::name('deliveryman.')->prefix('deliveryman')->group(function () {
+        Route::get('/', [DeliveryController::class, 'index'])->name('index');
+        Route::get('/list', [DeliveryController::class, 'list'])->name('list');
+        Route::post('/store', [DeliveryController::class, 'store'])->name('store');
+        Route::get('/edit', [DeliveryController::class, 'edit'])->name('edit');
+    });
+
     Route::name('category.')->prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::get('/list', [CategoryController::class, 'list'])->name('list');
@@ -150,6 +159,7 @@ Route::name('common.')->prefix('common')->group(function () {
     // live search
     Route::get('vendor-live-search', [CommonProductController::class, 'vendorLiveSearch'])->name('vendor_live_search');
     Route::get('customer-live-search', [CommonProductController::class, 'customerLiveSearch'])->name('customer_live_search');
+    Route::get('delivery-by-live-search', [CommonProductController::class, 'deliveryByLiveSearch'])->name('delivery_by_live_search');
     Route::get('product-live-search', [CommonProductController::class, 'productLiveSearch'])->name('product_live_search');
 });
 

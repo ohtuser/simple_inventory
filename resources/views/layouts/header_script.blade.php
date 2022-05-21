@@ -13,4 +13,4 @@
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
 <link rel="stylesheet" href="{{ asset('css/flatpickr.min.css') }}">
 {{-- custom css --}}
-<link rel="stylesheet" href="{{asset('css/custom_styles.css')}}">
+<link rel="stylesheet" href="{{ asset('css/custom_styles.css') }}">

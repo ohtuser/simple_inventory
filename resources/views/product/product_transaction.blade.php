@@ -11,7 +11,6 @@ $pfsl = explode(',', $inv_settings->posting_field_label);
             <th class="text-center">Product Name</th>
             @if ($inv_settings->posting_field_show != '')
                 @foreach ($pfs as $row)
-                    {{-- @php $row = intVal($row) @endphp --}}
                     <th class="text-center">{{ $pfsl[$row - 1] }}</th>
                 @endforeach
             @endif
@@ -78,12 +77,13 @@ $pfsl = explode(',', $inv_settings->posting_field_label);
                     @if (in_array(13, $pfs))
                         <td class="text-center last_purchase_history"></td>
                     @endif
-                    <td><input type="number" name="qty[]" value="0" onkeyup="calculate()"
+                    <td><input type="number" name="qty[]" value="{{ $pro->qty }}" onkeyup="calculate()"
                             class="form-control text-center qty qty{{ $trs }}"></td>
                     <td><input type="number" name="price[]" onkeyup="calculate()"
-                            class="form-control text-center price price{{ $trs }}" value="0"></td>
+                            class="form-control text-center price price{{ $trs }}"
+                            value="{{ $pro->getProduct->sell_price }}"></td>
                     <td><input type="text" name="total[]" class="form-control text-center total total{{ $trs }}"
-                            readonly="true" value="0"></td>
+                            readonly="true" value="{{ $pro->qty * $pro->getProduct->sell_price }}"></td>
                 </tr>
             @endforeach
         @endisset

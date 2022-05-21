@@ -51,6 +51,17 @@
                                     <input type="text" name="ref_invoice" class="form-control">
                                 </div>
                             </div>
+                            @isset($order)
+                                <div class="col-3">
+                                    @if ($order->delivery_type == 1)
+                                        <label for="">Delivery By</label>
+                                        <select name="deliveryman" class="form-control delivery_by_search"></select>
+                                    @else
+                                        <label for="">&nbsp;</label>
+                                        <p>Pickup</p>
+                                    @endif
+                                </div>
+                            @endisset
                             {{-- <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Attach File</label>
@@ -97,6 +108,7 @@
                 row = $(this).attr('data-row');
                 setProductInfo(product_id, row);
             });
+            calculate();
         });
     </script>
 @endsection
