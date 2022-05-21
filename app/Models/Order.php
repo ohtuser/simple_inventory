@@ -20,4 +20,9 @@ class Order extends Model
     {
         return $this->belongsTo(User::class, 'party_id');
     }
+
+    public function deliveredBy()
+    {
+        return $this->belongsTo(DeliveryPerson::class, 'delivered_by');
+    }
 }

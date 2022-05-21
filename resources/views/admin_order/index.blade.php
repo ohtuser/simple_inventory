@@ -18,6 +18,7 @@
                                 <th>Total Product</th>
                                 <th>Delivery Type</th>
                                 <th>Status</th>
+                                <th>Del. By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                         @endif
                                     </td>
                                     <td>{!! getOrderStatus($l->status, 1) !!}</td>
+                                    <td>{{ $l->deliveredBy->name ?? '-' }}</td>
                                     <td><a href="{{ route('customer.order.print', ['id' => $l->id]) }}"
                                             target="_blank">Print</a>
                                         @if ($l->status == 1)

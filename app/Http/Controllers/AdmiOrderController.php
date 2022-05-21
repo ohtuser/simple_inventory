@@ -9,7 +9,7 @@ class AdmiOrderController extends Controller
 {
     public function index()
     {
-        $data['orders'] = Order::with('getOrderDetails', 'orderedBy')->get();
+        $data['orders'] = Order::with('getOrderDetails', 'orderedBy', 'deliveredBy')->get();
         return view('admin_order.index', $data);
     }
 }
