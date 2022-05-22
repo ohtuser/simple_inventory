@@ -26,7 +26,10 @@ trait ListTrait
                 <td>' . userTypes($d->user_type) . '</td>
                 <td>' . $d->mobile . '</td>
                 <td>' . $d->address . '</td>
-                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+                <td>
+                    <a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a>
+                    <a href="' . route('delete', ['model' => 'users', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>';
         }
         return $returnHtml;
@@ -52,7 +55,10 @@ trait ListTrait
                 <td>' . ($d->shift == 1 ? '1st' : ($d->shift == 2 ? '2nd' : '3rd')) . ' Shift</td>
                 <td>' . $d->mobile . '</td>
                 <td>' . $d->address . '</td>
-                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+                <td>
+                    <a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a>
+                    <a href="' . route('delete', ['model' => 'delivery_people', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>';
         }
         return $returnHtml;
@@ -72,7 +78,9 @@ trait ListTrait
             $returnHtml .= '<tr>
                 <td>' . (++$key) . '</td>
                 <td>' . $d->name . '</td>
-                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a>
+                <a href="' . route('delete', ['model' => 'units', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>';
         }
         return $returnHtml;
@@ -92,7 +100,9 @@ trait ListTrait
             $returnHtml .= '<tr>
                 <td>' . (++$key) . '</td>
                 <td>' . $d->name . '</td>
-                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+                <td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a>
+                <a href="' . route('delete', ['model' => 'brands', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
+                </td>
             </tr>';
         }
         return $returnHtml;
@@ -118,7 +128,9 @@ trait ListTrait
             if ($sub_category) {
                 $returnHtml .= '<td>' . ($d->getCategory->name ?? '-') . '</td>';
             }
-            $returnHtml .= '<td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a></td>
+            $returnHtml .= '<td><a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit">Edit</a>
+            <a href="' . route('delete', ['model' => 'product_categories', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
+            </td>
             </tr>';
         }
         return $returnHtml;
@@ -149,6 +161,7 @@ trait ListTrait
                 <td>
                     <a href="" data-row-id="' . $d->id . '" class="btn btn-warning btn-sm btn_edit"><i class="fas fa-edit"></i></a>
                     <button class="btn btn-info btn-sm text-white" onclick="showProductDetails(' . $d->id . ')"><i class="fas fa-info"></i></button>
+                    <a href="' . route('delete', ['model' => 'products', 'id' => $d->id]) . '" data-row-id="' . $d->id . '" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>';
         }

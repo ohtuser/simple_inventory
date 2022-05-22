@@ -14,18 +14,18 @@ class CommonProductController extends Controller
     public function getSubcategory(Request $request)
     {
         $category = $request->category;
-        $sub_categories = ProductCategory::where('parent', $category)->get();
+        $sub_categories = ProductCategory::where('status', 1)->where('parent', $category)->get();
         return response()->json(['subcat' => $sub_categories]);
     }
 
     public function getProductDetails(Request $request)
     {
         if ($request->transaction) {
-            $info = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
+            $info = Products::where('status', 1)->with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
             return response()->json(['info' => $info]);
         }
 
-        $info = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
+        $info = Products::where('status', 1)->with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')->findOrFail($request->id);
         $returnHtml = '<div class="d-flex justify-content-center mb-2">
                 <image src="' . asset('images/product/' . $info->image) . '" style="max-width: 100px;">
             </div>';
@@ -98,7 +98,7 @@ class CommonProductController extends Controller
     public function vendorLiveSearch(Request $request)
     {
         // dd($request->all);
-        $list = User::whereIn('user_type', [4, 5])->where(function ($q) use ($request) {
+        $list = User::where('status', 1)->where('status', 1)->whereIn('user_type', [4, 5])->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
@@ -117,7 +117,7 @@ class CommonProductController extends Controller
     public function customerLiveSearch(Request $request)
     {
         // dd($request->all);
-        $list = User::whereIn('user_type', [3, 5])->where(function ($q) use ($request) {
+        $list = User::where('status', 1)->whereIn('user_type', [3, 5])->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
@@ -135,7 +135,7 @@ class CommonProductController extends Controller
 
     public function deliveryByLiveSearch(Request $request)
     {
-        $list = DeliveryPerson::where(function ($q) use ($request) {
+        $list = DeliveryPerson::where('status', 1)->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
@@ -154,7 +154,7 @@ class CommonProductController extends Controller
     public function productLiveSearch(Request $request)
     {
         // dd($request->all);
-        $list = Products::where(function ($q) use ($request) {
+        $list = Products::where('status', 1)->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();

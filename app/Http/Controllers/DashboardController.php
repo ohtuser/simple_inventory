@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\InvoiceTransaction;
 use App\Models\ProductCategory;
 use App\Models\Products;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
@@ -44,5 +46,22 @@ class DashboardController extends Controller
         }
         User::find(user()->id)->update($data);
         return response()->json(requestSuccess('Profile Updated Successfully', '', 'reload', 500, 1000, ''), 200);
+    }
+
+    public function delete(Request $request)
+    {
+        if ($request->model == 'users' || $request->model == 'delivery_people') {
+            // $request->model::findOrFail($request->id)->delete();
+            DB::table($request->model)->where('id', $request->id)->delete();
+        } else if ($request->model == 'invoices') {
+            DB::table($request->model)->where('id', $request->id)->delete();
+            InvoiceTransaction::where('invoice_id', $request->id)->delete();
+        } else {
+            DB::table($request->model)->where('id', $request->id)->update(['status' => 2]);
+        }
+        // $request->model::findOrFail($request->id)->update([
+        //     'status' =>
+        // ]);
+        return back();
     }
 }

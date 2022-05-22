@@ -52,6 +52,9 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::name('transaction.')->prefix('transaction')->group(function () {
         Route::get('print-invoice', [InventoryController::class, 'printInvoice'])->name('print');
     });
+
+
+    Route::get('delete', [DashboardController::class, 'delete'])->name('delete');
 });
 
 Route::group(['middleware' => 'admin_or_stuff'], function () {

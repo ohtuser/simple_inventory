@@ -45,7 +45,10 @@
                                     <td>{{ $l->pay }}</td>
                                     <td>{{ $l->due }}</td>
                                     <td><a href="{{ route('transaction.print', ['id' => $l->id]) }}"
-                                            target="_blank">Print</a></td>
+                                            target="_blank">Print</a>
+                                        <a href="{{ route('delete', ['model' => 'invoices', 'id' => $l->id]) }}"
+                                            class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

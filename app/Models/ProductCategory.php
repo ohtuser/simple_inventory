@@ -19,7 +19,7 @@ class ProductCategory extends Model
 
     function getSubCategory()
     {
-        return $this->hasMany(self::class, 'parent');
+        return $this->hasMany(self::class, 'parent')->where('status', 1);
     }
 
     public static function storeOrUpdate($request)
@@ -27,6 +27,7 @@ class ProductCategory extends Model
         $data = [
             'name' => $request->name,
             'parent' => $request->parent,
+            'status' => 1
         ];
         // dd($request);
         if ($request->row_id) {

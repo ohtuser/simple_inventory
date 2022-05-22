@@ -27,7 +27,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $l->order_number }}</td>
-                                    <td>{{ $l->orderedBy->name }}</td>
+                                    <td>{{ $l->orderedBy->name ?? '-' }}</td>
                                     <td>{{ date('d-m-Y', strtotime($l->created_at)) }}</td>
                                     <td>{{ count($l->getOrderDetails) }}</td>
                                     <td>
