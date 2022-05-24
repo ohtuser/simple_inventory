@@ -33,6 +33,10 @@ use App\Http\Controllers\DeliveryController;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login_attempt', [AuthController::class, 'loginAttempt'])->name('login_attempt');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/forgot-password', [AuthController::class, 'forgot_password'])->name('forgot_password');
+Route::post('/sent_otp', [AuthController::class, 'sent_otp'])->name('sent_otp');
+Route::get('/verify_otp', [AuthController::class, 'verify_otp'])->name('verify_otp');
+Route::post('/change_password', [AuthController::class, 'change_password'])->name('change_password');
 
 Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
