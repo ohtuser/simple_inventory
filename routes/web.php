@@ -46,6 +46,7 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
             Route::post('store', [OrderController::class, 'store'])->name('store');
             Route::get('index', [OrderController::class, 'index'])->name('index');
             Route::get('print', [OrderController::class, 'print'])->name('print');
+            Route::get('req_cancel', [OrderController::class, 'req_cancel'])->name('req_cancel');
         });
     });
 
@@ -89,6 +90,7 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
 
         Route::name('order.')->prefix('order')->group(function () {
             Route::get('/', [AdmiOrderController::class, 'index'])->name('index');
+            Route::post('cancel', [AdmiOrderController::class, 'cancel'])->name('cancel');
         });
     });
 

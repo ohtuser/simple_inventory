@@ -98,7 +98,7 @@ class CommonProductController extends Controller
     public function vendorLiveSearch(Request $request)
     {
         // dd($request->all);
-        $list = User::where('status', 1)->where('status', 1)->whereIn('user_type', [4, 5])->where(function ($q) use ($request) {
+        $list = User::whereIn('user_type', [4, 5])->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();
@@ -117,7 +117,7 @@ class CommonProductController extends Controller
     public function customerLiveSearch(Request $request)
     {
         // dd($request->all);
-        $list = User::where('status', 1)->whereIn('user_type', [3, 5])->where(function ($q) use ($request) {
+        $list = User::whereIn('user_type', [3, 5])->where(function ($q) use ($request) {
             if (!empty($request->term['term']))
                 $q->where("name", "like", '%' . $request->term['term'] . '%');
         })->get();

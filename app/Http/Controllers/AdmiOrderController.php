@@ -12,4 +12,10 @@ class AdmiOrderController extends Controller
         $data['orders'] = Order::with('getOrderDetails', 'orderedBy', 'deliveredBy')->get();
         return view('admin_order.index', $data);
     }
+
+    public function cancel(Request $request)
+    {
+        Order::find($request->id)->update(['status' => 3, 'order_cancel_charge' => $request->order_cancel_charge]);
+        return back();
+    }
 }

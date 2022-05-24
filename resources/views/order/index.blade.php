@@ -37,6 +37,10 @@
                                     <td>{!! getOrderStatus($l->status, 1) !!}</td>
                                     <td><a href="{{ route('customer.order.print', ['id' => $l->id]) }}"
                                             target="_blank">Print</a>
+                                        @if ($l->status == 1)
+                                            <a href="{{ route('customer.order.req_cancel', ['id' => $l->id]) }}"
+                                                class="btn btn-sm btn-warning">Request Cancel</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

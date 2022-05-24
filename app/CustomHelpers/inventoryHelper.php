@@ -54,7 +54,8 @@ function getOrderStatus($status = null, $with_badge = null)
     $arr = [
         1 => 'Ordered',
         2 => 'Delivered',
-        3 => 'Cancelled'
+        3 => 'Cancelled',
+        4 => 'Cancel Request',
     ];
     if ($status) {
         if ($with_badge) {
@@ -62,8 +63,10 @@ function getOrderStatus($status = null, $with_badge = null)
                 return '<span class="badge bg-primary text-light">Ordered</span>';
             } else if ($status == 2) {
                 return '<span class="badge bg-success text-light">Delivered</span>';
-            } else {
+            } else if ($status == 3) {
                 return '<span class="badge bg-danger text-light">Cancelled</span>';
+            } else {
+                return '<span class="badge bg-warning text-dark">Cancel Request</span>';
             }
         } else
             return $arr[$status];

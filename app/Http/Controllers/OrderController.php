@@ -57,4 +57,10 @@ class OrderController extends Controller
         $data['order_info'] = Order::with('getOrderDetails.getProduct.getBrand', 'getOrderDetails.getProduct.getUnit', 'orderedBy')->findOrFail($request->id);
         return view('order.print', $data);
     }
+
+    public function req_cancel(Request $request)
+    {
+        Order::find($request->id)->update(['status' => 4]);
+        return back();
+    }
 }
