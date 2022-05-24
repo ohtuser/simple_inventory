@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\SidebarController;
 use App\Models\User;
 use App\Models\UserWiseOtp;
+use App\Traits\MailTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    use MailTrait;
     public function login()
     {
         Auth::guard('admin')->logout();
@@ -76,7 +78,9 @@ class AuthController extends Controller
     {
         $is_email = User::where('email', $request->email)->first();
         if ($is_email) {
-            UserWiseOtp::create(['user_id' => $is_email->id, 'otp' => 123456, 'is_used' => 0]);
+            $otp = rand(100000, 999999);
+            $this->mail_send($request->email, $otp);
+            UserWiseOtp::create(['user_id' => $is_email->id, 'otp' => $otp, 'is_used' => 0]);
             return response()->json(['status' => 1, 'info' => $is_email]);
         } else {
             return response()->json(['message' => 'Email Not Found'], 421);
@@ -99,6 +103,9 @@ class AuthController extends Controller
 
     function change_password(Request $request)
     {
+        $request->validate([
+            'password' => 'required|min:3|max:30'
+        ]);
         User::findOrFail($request->user_id)->update(['password' => Hash::make($request->password)]);
         return response()->json(requestSuccess('Password Changed', '', route('login'), 500), 200);
     }
