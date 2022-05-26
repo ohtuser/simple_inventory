@@ -36,17 +36,28 @@ class DashboardController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email,' . user()->id
+            'email' => 'required|unique:users,email,' . user()->id,
+            'image' => 'image'
+        ], [
+            'image.image' => 'Wrong File Type'
         ]);
 
         $data = [
-            'name' => $request->name, 'email' => $request->email
+            'name' => $request->name, 'email' => $request->email, 'mobile' => $request->mobile, 'address' => $request->address
         ];
 
         if ($request->password) {
             $data['password'] = Hash::make($request->password);;
         }
+
+        if ($request->hasFile('image')) {
+            $img_name = time() . rand(1, 100) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images/'), $img_name);
+            $data['image'] = $img_name;
+        }
         User::find(user()->id)->update($data);
+        $userInfo = User::find(user()->id);
+        session()->put('auth', $userInfo);
         return response()->json(requestSuccess('Profile Updated Successfully', '', 'reload', 500, 1000, ''), 200);
     }
 
