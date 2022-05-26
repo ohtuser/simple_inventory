@@ -27,7 +27,7 @@
 
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="">Customer</label><br>
+                                    <label for="">Client</label><br>
                                     @isset($order)
                                         <input type="hidden" name="party" value="{{ $order->party_id }}">
                                         {{ $order->orderedBy->name }}

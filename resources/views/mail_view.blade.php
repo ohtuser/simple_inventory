@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Customer Management System</title>
+    <title>Client Management System</title>
     <style>
         * {
             margin: 0;

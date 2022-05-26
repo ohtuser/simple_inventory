@@ -31,7 +31,7 @@
                     <div class="col-3">
                         <div class="card">
                             <div class="card-header bg-info text-white">
-                                <h6 class="text-center">Customers</h6>
+                                <h6 class="text-center">Clients</h6>
                             </div>
                             <div class="card-body p-1">
                                 <h3 class="text-center"><b>{{ $users->whereIn('user_type', [3, 5])->count() }}</b></h3>

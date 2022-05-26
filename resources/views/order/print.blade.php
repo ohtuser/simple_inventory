@@ -55,7 +55,7 @@
                 {{-- <a class="pt-2 d-inline-block" href="index.html" data-abc="true">BBBootstrap.com</a> --}}
                 <div class="float-left">
                     <h3 class="mb-0">Order No: {{ $order_info->order_number }}</h3>
-                    <p class="mb-0"><b>Customer:</b> {{ $order_info->orderedBy->name }}</p>
+                    <p class="mb-0"><b>Client:</b> {{ $order_info->orderedBy->name }}</p>
                     <p class="mb-0"><b>Date:</b> {{ date('d M, Y', strtotime($order_info->created_at)) }}</p>
                     <p class="mb-0"><b>Status:</b> {!! getOrderStatus($order_info->status, 1) !!}</p>
                     @if ($order_info->status == 2)

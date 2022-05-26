@@ -20,7 +20,7 @@
                         <div class="row mb-3">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="">Customer</label>
+                                    <label for="">Client</label>
                                     <select class="form-control customer_search" name="party" id=""></select>
                                 </div>
                             </div>
