@@ -11,7 +11,8 @@ class Products extends Model
 
     protected $guarded = [];
 
-    public static function storeOrUpdate($request){
+    public static function storeOrUpdate($request)
+    {
         $data = [
             'name' => $request->name,
             'local_name' => $request->local_name,
@@ -30,37 +31,46 @@ class Products extends Model
             'description' => $request->description,
         ];
 
-        if($request->hasFile('image')){
-            $imageName = time().'.'.$request->image->extension();
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/product'), $imageName);
             $data['image'] = $imageName;
         }
-        if($request->row_id){
-           self::find($request->row_id)->update($data);
-        }else{
+        if ($request->row_id) {
+            self::find($request->row_id)->update($data);
+        } else {
             self::create($data);
         }
         return true;
     }
 
-    public function getCategory(){
+    public function getCategory()
+    {
         return $this->belongsTo(ProductCategory::class, 'category');
     }
 
-    public function getSubCategory(){
+    public function getSubCategory()
+    {
         return $this->belongsTo(ProductCategory::class, 'sub_category');
     }
 
-    public function getBrand(){
+    public function getBrand()
+    {
         return $this->belongsTo(Brand::class, 'brand');
     }
 
-    public function getUnit(){
+    public function getUnit()
+    {
         return $this->belongsTo(Unit::class, 'unit');
     }
 
     public function getStock()
     {
         return $this->hasOne(StoreTransactionView::class, 'product_id', 'id');
+    }
+
+    public function getSellInfo()
+    {
+        return $this->hasMany(InvoiceTransaction::class, 'product_id')->where('transaction_type', 3);
     }
 }

@@ -17,10 +17,12 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $data['users'] = User::get();
-        $data['products'] = Products::get();
+        $data['products'] = Products::withSum('getSellInfo', 'quantity')->get();
         $data['brands'] = Brand::get();
         $data['categories'] = ProductCategory::where('parent', null)->get();
         $data['units'] = Unit::get();
+        $data['product_names'] = $data['products']->pluck('name')->toArray();
+        $data['sold_qty'] = $data['products']->pluck('get_sell_info_sum_quantity')->toArray();
         return view('welcome', $data);
     }
 

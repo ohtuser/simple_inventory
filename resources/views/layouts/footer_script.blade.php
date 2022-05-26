@@ -7,21 +7,17 @@
 <script src="{{ asset('js/sidebar_toggle.js') }}"></script>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> --}}
 <script src="{{ asset('js/chart.js') }}"></script>
-<script src="{{ asset('js/assets/charts/chart-area-demo.js') }}"></script>
-<script src="{{ asset('js/assets/charts/chart-bar-demo.js') }}"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script> --}}
+{{-- <script src="{{ asset('js/assets/charts/chart-area-demo.js') }}"></script>
+<script src="{{ asset('js/assets/charts/chart-bar-demo.js') }}"></script> --}}
 <script src="{{ asset('js/simple-datatables.js') }}"></script>
 <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
 {{-- select2 --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 <script src="{{ asset('js/select2.min.js') }}"></script>
 {{-- sweet alert 2 --}}
-{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script src="{{ asset('js/sweetalert2.js') }}"></script>
 {{-- data table --}}
 
 {{-- flatpicker --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 <script src="{{ asset('js/flatpickr.js') }}"></script>
 {{-- common blade --}}
 @include('layouts.common');
