@@ -14,8 +14,9 @@
                                 <th>Sl</th>
                                 <th>Order. No.</th>
                                 <th>Date</th>
-                                <th>Total Product</th>
+                                <th>T. Product</th>
                                 <th title="Delivery Type">D. Type</th>
+                                <th>Advance Info</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -33,6 +34,11 @@
                                         @else
                                             Pickup
                                         @endif
+                                    </td>
+                                    <td>
+                                        Mode: {!! getPaymentMode($l->payment_mode, 1) !!} <br>
+                                        Mobile: {{ $l->mobile }} <br>
+                                        Amount: {{ $l->advance }}
                                     </td>
                                     <td>{!! getOrderStatus($l->status, 1) !!}</td>
                                     <td><a href="{{ route('customer.order.print', ['id' => $l->id]) }}"

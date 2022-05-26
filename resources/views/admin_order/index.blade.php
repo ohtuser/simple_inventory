@@ -18,6 +18,7 @@
                                 <th>Total Product</th>
                                 <th>Delivery Type</th>
                                 <th>Status</th>
+                                <th>Advance Info</th>
                                 <th>Del. By</th>
                                 <th>Order Cancel Charge</th>
                                 <th>Action</th>
@@ -39,6 +40,11 @@
                                         @endif
                                     </td>
                                     <td>{!! getOrderStatus($l->status, 1) !!}</td>
+                                    <td>
+                                        Mode: {!! getPaymentMode($l->payment_mode, 1) !!} <br>
+                                        Mobile: {{ $l->mobile }} <br>
+                                        Amount: {{ $l->advance }}
+                                    </td>
                                     <td>{{ $l->deliveredBy->name ?? '-' }}</td>
                                     <td>
                                         @if ($l->status == 3)
@@ -47,6 +53,7 @@
                                             -
                                         @endif
                                     </td>
+
                                     <td><a href="{{ route('customer.order.print', ['id' => $l->id]) }}"
                                             target="_blank">Print</a>
                                         @if ($l->status == 1)

@@ -16,13 +16,33 @@
                 <div class="card">
                     <div class="card-header d-flex bg-info text-white justify-content-between">
                         <h6>Order Create</h6>
-                        <select name="delivery_type" class="form-control select_2" style="width: 200px">
-                            <option value="1">Home Delivery</option>
-                            <option value="2">Pickup</option>
-                        </select>
                     </div>
                     <div class="card-body">
-
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="">Delivery Type</label>
+                                <select name="delivery_type" class="form-control select_2" style="width: 100%">
+                                    <option value="1">Home Delivery</option>
+                                    <option value="2">Pickup</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="">Payment Mode</label>
+                                <select name="payment_mode" class="form-control select_2" style="width: 100%">
+                                    @foreach (getPaymentMode() as $key => $pm)
+                                        <option value="{{ $key }}">{{ $pm }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="">Mobile Number</label>
+                                <input type="text" class="form-control" name="mobile" value="{{ user()->mobile }}">
+                            </div>
+                            <div class="col">
+                                <label for="">Advance</label>
+                                <input type="number" class="form-control" name="advance" value="0">
+                            </div>
+                        </div>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -55,9 +75,9 @@
                                                     <td>{{ $product->getBrand->name }}</td>
                                                     <td>{{ $product->getUnit->name }}</td>
                                                     <td>{{ $product->sell_price }}</td>
-                                                    <td style="width: 200px"><input name="product_qty[{{ $product->id }}]"
-                                                            value="0" min="0" step="0.00001" type="number"
-                                                            class="form-control"></td>
+                                                    <td style="width: 200px"><input
+                                                            name="product_qty[{{ $product->id }}]" value="0" min="0"
+                                                            step="0.00001" type="number" class="form-control"></td>
                                                 </tr>
                                             @endforeach
                                         @endif

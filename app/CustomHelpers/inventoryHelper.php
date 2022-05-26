@@ -89,3 +89,26 @@ function getSellInvoiceOfOrder($id)
 {
     return Invoice::where('ref_invoice', $id)->first();
 }
+
+function getPaymentMode($status = null, $with_badge = null)
+{
+    $arr = [
+        1 => 'Bkash',
+        2 => 'Rocket',
+        3 => 'Nagad'
+    ];
+    if ($status) {
+        if ($with_badge) {
+            if ($status == 1) {
+                return '<span class="badge text-light" style="background-color: #E71868">Bkash</span>';
+            } else if ($status == 2) {
+                return '<span class="badge text-light" style="background-color: #8C2587">Rocket</span>';
+            } else if ($status == 3) {
+                return '<span class="badge text-light" style="background-color: #F02425">Nagad</span>';
+            }
+        } else
+            return $arr[$status];
+    } else {
+        return $arr;
+    }
+}

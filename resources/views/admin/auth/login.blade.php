@@ -103,13 +103,13 @@
                                     </div>
 
                                     <form class="form_submit" action="{{ route('login_attempt') }}">
-                                        <div class="form-outline mb-4">
+                                        <div class="form-outline">
                                             <input type="email" id="form2Example11" class="form-control"
                                                 placeholder="Email address" name="email" />
                                             <label class="form-label" for="form2Example11">Email</label>
                                         </div>
 
-                                        <div class="form-outline mb-4">
+                                        <div class="form-outline">
                                             <input type="password" name="password" id="form2Example22"
                                                 class="form-control" />
                                             <label class="form-label" for="form2Example22">Password</label>

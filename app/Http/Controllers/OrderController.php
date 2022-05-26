@@ -31,6 +31,13 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $added_product = array_filter($request->product_qty);
+        $request->validate([
+            'advance' => 'required|numeric|min:1',
+            'mobile' => 'required'
+        ], [
+            'advance.required' => 'Please Payment First',
+            'mobile.required' => 'Please Enter Mobile Number'
+        ]);
         if (count($added_product) <= 0) {
             return response()->json(['message' => 'No Product Added'], 421);
         } else {
@@ -38,7 +45,10 @@ class OrderController extends Controller
                 'party_id' => user()->id,
                 'status' => 1,
                 'order_number' => getOrderNumber(),
-                'delivery_type' => $request->delivery_type
+                'delivery_type' => $request->delivery_type,
+                'payment_mode' => $request->payment_mode,
+                'mobile' => $request->mobile,
+                'advance' => $request->advance
             ]);
             foreach ($added_product as $product => $qty) {
                 OrderDetail::create([
