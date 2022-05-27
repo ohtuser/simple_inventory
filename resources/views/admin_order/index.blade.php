@@ -13,7 +13,7 @@
                             <tr>
                                 <th>Sl</th>
                                 <th>Order. No.</th>
-                                <th>Customer</th>
+                                <th>Client</th>
                                 <th>Date</th>
                                 <th>Total Product</th>
                                 <th>Delivery Type</th>
