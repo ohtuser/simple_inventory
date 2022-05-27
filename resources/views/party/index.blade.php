@@ -19,7 +19,7 @@
                                 <div class="">
                                     <label for="">Party Type</label>
                                     <select name="type" id="" class="form-control select_2 type">
-                                        <option value="3">Customer</option>
+                                        <option value="3">Client</option>
                                         <option value="4">Vendor</option>
                                         <option value="5">Both</option>
                                     </select>
