@@ -45,6 +45,7 @@ class InventoryController extends Controller
             DB::beginTransaction();
             $invoice_status = Invoice::invoiceStore($request);
             InvoiceTransaction::transactionStore($invoice_status, $request);
+            journalPosting($invoice_status->id, $request->party, $request->in_out == 1 ? 2 : 1, $request->pay_amount, $request->date);
             DB::commit();
             return response()->json(requestSuccess('Invoice Created Successfully', '', route('transaction.print', ['id' => $invoice_status->id]), 1000, ''), 200);
         } catch (Exception $e) {

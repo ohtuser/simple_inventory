@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdmiOrderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
@@ -125,11 +126,16 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
         Route::get('sell-return/list', [InventoryController::class, 'sellReturnList'])->name('sell_return.list');
     });
 
+    Route::get('journal/create', [AccountController::class, 'create'])->name('journal.create');
+    Route::get('journal/store', [AccountController::class, 'store'])->name('journal.store');
+    Route::get('invoice_info', [AccountController::class, 'invoice_info'])->name('invoice_info');
+
     // Reports
     Route::name('reports.')->prefix('reports')->group(function () {
         Route::name('inv_reports.')->prefix('inv-reports')->group(function () {
             Route::get('stock-report', [ReportController::class, 'stockReport'])->name('stock_report');
-            Route::get('due-report', [ReportController::class, 'customerWiseDue'])->name('custome_wWise_due');
+            Route::get('due-report', [ReportController::class, 'customerWiseDue'])->name('custome_wise_due');
+            Route::get('journals', [AccountController::class, 'index'])->name('journals');
         });
     });
 });

@@ -2,6 +2,7 @@
 
 use App\Models\Invoice;
 use App\Models\InvoiceSetting;
+use App\Models\Journal;
 use App\Models\Order;
 
 function getInvoiceSettings($id)
@@ -111,4 +112,18 @@ function getPaymentMode($status = null, $with_badge = null)
     } else {
         return $arr;
     }
+}
+
+function journalPosting($invoice, $party, $dr_cr, $amount, $date)
+{
+    if ($amount > 0) {
+        Journal::create([
+            'party_id' => $party,
+            'dr_cr' => $dr_cr,
+            'invoice_id' => $invoice,
+            'amount' => $amount,
+            'date' => date('Y-m-d', strtotime($date))
+        ]);
+    }
+    return true;
 }
