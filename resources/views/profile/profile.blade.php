@@ -11,8 +11,7 @@
                     <div class="card">
                         <div class="card-header bg-orange text-white">
                             <h6>Update Profile</h6>
-                            @if(user()->user_type != 1 && user()->user_type != 2)
-
+                            @if (user()->user_type != 1 && user()->user_type != 2)
                             @endif
                         </div>
                         <div class="card-body">
@@ -56,33 +55,42 @@
                         </div>
                     </div>
                 </div>
-                @if($user->getProfileUpdateRequest)
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header bg-orange text-white">
-                            <h6>Profile Update Request</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <span>{{ $user->getProfileUpdateRequest->name }}</span>
+                @if ($user->getProfileUpdateRequest)
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header bg-orange text-white">
+                                <h6>Profile Update Request</h6>
                             </div>
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <span>{{ $user->getProfileUpdateRequest->email }}</span>
+                            <div class="card-body">
+                                <div style="width: 100px">
+                                    @if ($user->getProfileUpdateRequest->image)
+                                        <img style="width: 100%;"
+                                            src="{{ asset('images/' . $user->getProfileUpdateRequest->image) }}" alt="">
+                                    @else
+                                        <img style="width: 100%;" src="{{ asset('profile.jpg') }}" alt="">
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <strong for="">Name: </strong>
+                                    <span>{{ $user->getProfileUpdateRequest->name }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <strong for="">Email: </strong>
+                                    <span>{{ $user->getProfileUpdateRequest->email }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <strong for="">Mobile: </strong>
+                                    <span>{{ $user->getProfileUpdateRequest->mobile }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <strong for="">Address: </strong>
+                                    <span>{{ $user->getProfileUpdateRequest->address }}</span>
+                                </div>
+                                <a href="{{ route('profile_update_request_cancel') }}"
+                                    class="btn btn-danger btn-sm">Cancel</a>
                             </div>
-                            <div class="form-group">
-                                <label for="">Mobile</label>
-                                <span>{{ $user->getProfileUpdateRequest->mobile }}</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Address</label>
-                                <span>{{ $user->getProfileUpdateRequest->address }}</span>
-                            </div>
-                            <a href="{{ route('profile_update_request_cancel') }}" class="btn btn-danger btn-sm">Cancel</a>
                         </div>
                     </div>
-                </div>
                 @endif
             </div>
         </div>

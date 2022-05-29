@@ -20,6 +20,7 @@ class CreateCustomerProfileUpdateRequestsTable extends Migration
             $table->string('email')->unique();
             $table->string('mobile')->nullable();
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

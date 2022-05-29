@@ -48,29 +48,37 @@ class DashboardController extends Controller
         ];
         $msg = '';
 
+        $password = null;
         if ($request->password) {
-            $data['password'] = Hash::make($request->password);
+            $password = $data['password'] = Hash::make($request->password);
             $msg = 'Password Has Been Updated.';
         }
-
+        $img = null;
         if ($request->hasFile('image')) {
             $img_name = time() . rand(1, 100) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('images/'), $img_name);
-            $data['image'] = $img_name;
-            $msg .= 'Profile Image Has Been Updated.';
+            $img = $data['image'] = $img_name;
         }
-        if(user()->user_type == 1 || user()->user_type == 2){
+        if (user()->user_type == 1 || user()->user_type == 2) {
             User::find(user()->id)->update($data);
             $msg = 'Profile Updated Successfully';
-        }else{
+        } else {
             CustomerProfileUpdateRequest::where('user_id', user()->id)->delete();
+            $is_exist = User::where('email', $request->email)->where('id', '!=', user()->id)->first();
+            if ($is_exist) {
+                return response()->json(['message' => 'Email Already Exist'], 421);
+            }
             CustomerProfileUpdateRequest::create([
                 'user_id' => user()->id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'mobile' => $request->mobile,
-                'address' => $request->address
+                'address' => $request->address,
+                'image' => $img
             ]);
+            if ($password != null) {
+                User::find(user()->id)->update(['password' => $password]);
+            }
             $msg .= 'Requested For Profile Updated';
         }
 
@@ -97,7 +105,8 @@ class DashboardController extends Controller
     }
 
 
-    public function profile_update_request_cancel(){
+    public function profile_update_request_cancel()
+    {
         CustomerProfileUpdateRequest::where('user_id', user()->id)->delete();
         return back();
     }
