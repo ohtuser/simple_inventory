@@ -11,6 +11,9 @@
                     <div class="card">
                         <div class="card-header bg-orange text-white">
                             <h6>Update Profile</h6>
+                            @if(user()->user_type != 1 && user()->user_type != 2)
+
+                            @endif
                         </div>
                         <div class="card-body">
                             <form action="{{ route('profile_update') }}" class="form_submit">
@@ -53,6 +56,34 @@
                         </div>
                     </div>
                 </div>
+                @if($user->getProfileUpdateRequest)
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header bg-orange text-white">
+                            <h6>Profile Update Request</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <span>{{ $user->getProfileUpdateRequest->name }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <span>{{ $user->getProfileUpdateRequest->email }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Mobile</label>
+                                <span>{{ $user->getProfileUpdateRequest->mobile }}</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Address</label>
+                                <span>{{ $user->getProfileUpdateRequest->address }}</span>
+                            </div>
+                            <a href="{{ route('profile_update_request_cancel') }}" class="btn btn-danger btn-sm">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

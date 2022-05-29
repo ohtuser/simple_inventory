@@ -43,6 +43,8 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
 
     Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
     Route::post('profile_update', [DashboardController::class, 'profile_update'])->name('profile_update');
+    Route::get('profile_update_request_cancel', [DashboardController::class, 'profile_update_request_cancel'])->name('profile_update_request_cancel');
+    Route::post('profile_update_request_approve', [DashboardController::class, 'profile_update_request_cancel'])->name('profile_update_request_approve');
 
     Route::name('customer.')->prefix('customer')->group(function () {
         Route::name('order.')->prefix('order')->group(function () {

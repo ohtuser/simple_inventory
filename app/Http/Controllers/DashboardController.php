@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\CustomerProfileUpdateRequest;
 use App\Models\InvoiceTransaction;
 use App\Models\ProductCategory;
 use App\Models\Products;
@@ -28,7 +29,7 @@ class DashboardController extends Controller
 
     public function profile()
     {
-        $user = User::find(user()->id);
+        $user = User::with('getProfileUpdateRequest')->find(user()->id);
         return view('profile.profile', compact('user'));
     }
 
@@ -45,20 +46,37 @@ class DashboardController extends Controller
         $data = [
             'name' => $request->name, 'email' => $request->email, 'mobile' => $request->mobile, 'address' => $request->address
         ];
+        $msg = '';
 
         if ($request->password) {
-            $data['password'] = Hash::make($request->password);;
+            $data['password'] = Hash::make($request->password);
+            $msg = 'Password Has Been Updated.';
         }
 
         if ($request->hasFile('image')) {
             $img_name = time() . rand(1, 100) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('images/'), $img_name);
             $data['image'] = $img_name;
+            $msg .= 'Profile Image Has Been Updated.';
         }
-        User::find(user()->id)->update($data);
+        if(user()->user_type == 1 || user()->user_type == 2){
+            User::find(user()->id)->update($data);
+            $msg = 'Profile Updated Successfully';
+        }else{
+            CustomerProfileUpdateRequest::where('user_id', user()->id)->delete();
+            CustomerProfileUpdateRequest::create([
+                'user_id' => user()->id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'address' => $request->address
+            ]);
+            $msg .= 'Requested For Profile Updated';
+        }
+
         $userInfo = User::find(user()->id);
         session()->put('auth', $userInfo);
-        return response()->json(requestSuccess('Profile Updated Successfully', '', 'reload', 500, 1000, ''), 200);
+        return response()->json(requestSuccess($msg, '', 'reload', 500, 1000, ''), 200);
     }
 
     public function delete(Request $request)
@@ -75,6 +93,12 @@ class DashboardController extends Controller
         // $request->model::findOrFail($request->id)->update([
         //     'status' =>
         // ]);
+        return back();
+    }
+
+
+    public function profile_update_request_cancel(){
+        CustomerProfileUpdateRequest::where('user_id', user()->id)->delete();
         return back();
     }
 }

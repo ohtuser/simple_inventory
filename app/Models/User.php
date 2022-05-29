@@ -73,4 +73,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invoice::class, 'party_id');
     }
+
+    public function getProfileUpdateRequest(){
+        return $this->hasOne(CustomerProfileUpdateRequest::class, 'user_id');
+    }
 }
