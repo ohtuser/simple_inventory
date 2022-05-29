@@ -4,7 +4,12 @@
     <div class="card">
         <div class="card-header text-white bg-primay-blue justify-content-between d-flex">
             <h5>Party Management</h5>
-            <button class="btn btn-sm btn-light" onclick="form_submit_reset()">Add Party</button>
+            <div>
+                <button class="btn btn-sm btn-light" onclick="form_submit_reset()">Add Party</button>
+                <a href="{{ route('profile_update_request_list') }}" class="btn btn-sm btn-light">Profile Update Req.
+                    List</a>
+            </div>
+
         </div>
         <div class="card-body">
             <div class="row">

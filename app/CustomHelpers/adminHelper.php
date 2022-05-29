@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 function getProjectName()
 {
@@ -35,7 +36,13 @@ function requestSuccess($message = '', $description = '', $redirectTo = 'closeAn
 
 function user()
 {
-    return session()->get('auth');
+    $id = session()->get('auth')->id;
+    return User::find($id);
+}
+
+function live_user()
+{
+    return User::find(user()->id);
 }
 
 function userTypes($type)

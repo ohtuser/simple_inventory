@@ -10,4 +10,9 @@ class CustomerProfileUpdateRequest extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function userInfo()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

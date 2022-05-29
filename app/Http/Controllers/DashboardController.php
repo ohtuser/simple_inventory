@@ -68,16 +68,17 @@ class DashboardController extends Controller
             if ($is_exist) {
                 return response()->json(['message' => 'Email Already Exist'], 421);
             }
+            $party_info = User::find(user()->id);
             CustomerProfileUpdateRequest::create([
                 'user_id' => user()->id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'mobile' => $request->mobile,
                 'address' => $request->address,
-                'image' => $img
+                'image' => $img == null ? $party_info->image : $img
             ]);
             if ($password != null) {
-                User::find(user()->id)->update(['password' => $password]);
+                $party_info->update(['password' => $password]);
             }
             $msg .= 'Requested For Profile Updated';
         }
@@ -105,9 +106,31 @@ class DashboardController extends Controller
     }
 
 
-    public function profile_update_request_cancel()
+    public function profile_update_request_cancel(Request $request)
     {
-        CustomerProfileUpdateRequest::where('user_id', user()->id)->delete();
+        $user_id = $request->id ? $request->id : user()->id;
+        CustomerProfileUpdateRequest::where('user_id', $user_id)->delete();
         return back();
+    }
+
+    public function profile_update_request_approve(Request $request)
+    {
+        $user_id = $request->id;
+        $info = CustomerProfileUpdateRequest::where('user_id', $user_id)->first();
+        User::find($user_id)->update([
+            'name' => $info->name,
+            'email' => $info->email,
+            'mobile' => $info->mobile,
+            'address' => $info->address,
+            'image' => $info->image,
+        ]);
+        $info->delete();
+        return back();
+    }
+
+    public function profile_update_request_list()
+    {
+        $data['requests'] = CustomerProfileUpdateRequest::with('userInfo')->get();
+        return view('profile.update_req_list', $data);
     }
 }
