@@ -35,6 +35,38 @@ class AccountController extends Controller
         $html .= '<p class="mb-0"><b>Total Amount: </b>' . $info->payable . '</p>';
         $html .= '<p class="mb-0"><b>Total Paid: </b>' . $info->pay . '</p>';
         $html .= '<p class="mb-0"><b>Total Due: </b>' . $info->due . '</p>';
+        if ($info->transaction_type == 1 || $info->transaction_type == 4) {
+            $html .= '<span class="badge bg-danger">Debit</span>';
+        } else {
+            $html .= '<span class="badge bg-success">Cradit</span>';
+        }
         return response()->json(['html' => $html, 'due' => $info->due]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'invoice_id' => 'required',
+            'amount' => 'required|numeric|min:0'
+        ]);
+        $info = Invoice::findOrFail($request->invoice_id);
+        $dr_cr = 0;
+        if ($info->transaction_type == 1 || $info->transaction_type == 4) {
+            $dr_cr = 2;
+        } else {
+            $dr_cr = 1;
+        }
+        if ($info->due < $request->amount) {
+            return response()->json(['message' => 'Trying to receive more than due'], 421);
+        }
+
+        $pay = $info->pay + $request->amount;
+        $due = $info->payable - $pay;
+        $info->update([
+            'pay' => $pay,
+            'due' => $due
+        ]);
+        journalPosting($request->invoice_id, $info->party_id, $dr_cr, $request->amount, date('Y-m-d'));
+        return response()->json(requestSuccess('Amount Posted Successfully', '', 'reload', 500, '', false));
     }
 }

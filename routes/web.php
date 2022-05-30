@@ -127,7 +127,7 @@ Route::group(['middleware' => 'admin_or_stuff'], function () {
     });
 
     Route::get('journal/create', [AccountController::class, 'create'])->name('journal.create');
-    Route::get('journal/store', [AccountController::class, 'store'])->name('journal.store');
+    Route::post('journal/store', [AccountController::class, 'store'])->name('journal.store');
     Route::get('invoice_info', [AccountController::class, 'invoice_info'])->name('invoice_info');
 
     // Reports

@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="form-group">
                             <span for="">Invoice</span>
-                            <select name="type" id="invoice_id" class="form-control select_2">
+                            <select name="type" id="find_invoice_id" class="form-control select_2">
                                 @foreach ($invoices as $i)
                                     <option value="{{ $i->id }}">{{ $i->invoice_no }}</option>
                                 @endforeach
@@ -29,11 +29,11 @@
 
                 </div>
                 <div class="col-4 journal_posting" style="display: none;">
-                    <form action="{{ route('journal.store') }}">
+                    <form action="{{ route('journal.store') }}" class="form_submit">
                         <input type="hidden" name="invoice_id" id="invoice_id">
                         <label for="">Pay</label>
-                        <input type="number" class="form-control" id="pay">
-                        <button class="form-control btn btn-sm">Store</button>
+                        <input type="number" class="form-control" id="pay" name="amount">
+                        <button class="btn btn-sm btn-success mt-2">Store</button>
                     </form>
                 </div>
             </div>
@@ -42,7 +42,7 @@
 
     <script>
         function findInfo() {
-            let id = $('#invoice_id').val();
+            let id = $('#find_invoice_id').val();
             customAjaxCall(function(res) {
                 $('.invoice_info').html(res.html);
                 $('.journal_posting').show();

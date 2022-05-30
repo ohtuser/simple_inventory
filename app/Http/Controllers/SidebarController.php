@@ -35,8 +35,11 @@ class SidebarController extends Controller
 
             ['module_name' => 'Transactions', 'group_name' => 'Order', 'name' => 'List', 'icon' => 'fas fa-bars', 'route' => 'admin.order.index', 'sort' => 1, 'permission_admin' => 1, 'permission_stuff' => 1, 'permission_customer' => 0, 'status' => 1],
 
+            // acounts
+            ['module_name' => 'Accounts', 'group_name' => 'Amount Transactions', 'name' => 'Amount Transactions', 'icon' => 'fas fa-bars', 'route' => 'journal.create', 'sort' => 1, 'permission_admin' => 1, 'permission_stuff' => 1, 'permission_customer' => 0, 'status' => 1],
             // reports
             ['module_name' => 'Reports', 'group_name' => 'Inv Report', 'name' => 'Stock Report', 'icon' => 'fas fa-bars', 'route' => 'reports.inv_reports.stock_report', 'sort' => 1, 'permission_admin' => 1, 'permission_stuff' => 1, 'permission_customer' => 0, 'status' => 1],
+            ['module_name' => 'Reports', 'group_name' => 'Inv Report', 'name' => 'Amount Transactions', 'icon' => 'fas fa-bars', 'route' => 'reports.inv_reports.journals', 'sort' => 1, 'permission_admin' => 1, 'permission_stuff' => 1, 'permission_customer' => 0, 'status' => 1],
 
 
             // customer
