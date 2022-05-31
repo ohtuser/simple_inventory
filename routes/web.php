@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\auth\AuthController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,8 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
             Route::get('print', [OrderController::class, 'print'])->name('print');
             Route::get('req_cancel', [OrderController::class, 'req_cancel'])->name('req_cancel');
         });
+        Route::post('review/post', [ReviewController::class, 'review_post'])->name('review.post');
+        Route::get('review/product_wise', [ReviewController::class, 'review_product_wise'])->name('reviews');
     });
 
     Route::name('transaction.')->prefix('transaction')->group(function () {

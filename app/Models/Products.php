@@ -73,4 +73,9 @@ class Products extends Model
     {
         return $this->hasMany(InvoiceTransaction::class, 'product_id')->where('transaction_type', 3);
     }
+
+    public function getRating()
+    {
+        return $this->hasMany(ProductReview::class, 'product_id');
+    }
 }

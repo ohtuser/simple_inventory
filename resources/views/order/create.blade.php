@@ -1,6 +1,12 @@
 @extends('layouts.master')
 
 @section('css')
+    <link href="{{ asset('rating/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('rating/krajee-fas/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('rating/krajee-svg/theme.css') }}">
+    <!--suppress JSUnresolvedLibraryURL -->
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
     <style>
         th,
         td {
@@ -71,7 +77,16 @@
                                             @foreach ($sub->getProductsSubCatWise as $product)
                                                 <tr>
                                                     <td>{{ $sl++ }}</td>
-                                                    <td>{{ $product->name }}</td>
+                                                    <td>
+                                                        {{ $product->name }}
+                                                        @if (count($product->getRating) > 0)
+                                                            (<i class="fas fa-star"></i>
+                                                            {{ round($product->getRating->sum('rating') / $product->getRating->count(), 2) }})
+                                                        @endif
+                                                        <br>
+                                                        <button type="button" data-id="{{ $product->id }}"
+                                                            class="btn btn-sm btn-info text-light review_button">Review</button>
+                                                    </td>
                                                     <td>{{ $product->getBrand->name }}</td>
                                                     <td>{{ $product->getUnit->name }}</td>
                                                     <td>{{ $product->sell_price }}</td>
@@ -94,11 +109,61 @@
     </div>
 
     @include('layouts.common')
+
+
+    {{-- Models --}}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="reviews">
+
+                    </div>
+                    <form action="{{ route('customer.review.post') }}" class="form_submit">
+                        <input type="hidden" id="product_id" name="product_id">
+                        <input id="input-21b" value="4" type="text" class="rating" data-theme="krajee-fas"
+                            data-min=0 data-max=5 data-step=0.2 data-size="xs" title="" name="rating">
+                        <div class="clearfix"></div>
+                        <textarea type="text" name="comments" style="width: 100%" class="form-control ml-3"
+                            placeholder="Write product experience here..."></textarea>
+                        <button type="submit" class="btn btn-sm btn-success mt-2">Post</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @section('js')
+    <script src="{{ asset('rating/star-rating.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('rating/krajee-fas/theme.js') }}"></script>
+    <script src="{{ asset('rating/krajee-svg/theme.js') }}"></script>
     <script>
         $('.select_2').select2();
+
+        $('.review_button').click(function() {
+            let product_id = $(this).attr('data-id');
+            $('#product_id').val(product_id);
+            $('#exampleModal').modal('show');
+            getReviews(product_id);
+        })
+
+        function getReviews(product_id) {
+            customAjaxCall(function(res) {
+                console.warn(res);
+                $('.reviews').html(res.html);
+            }, 'get', "{{ route('customer.reviews') }}", {
+                product_id
+            })
+        }
     </script>
 @endsection

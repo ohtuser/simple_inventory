@@ -21,7 +21,8 @@ class OrderController extends Controller
         $data['categories'] = ProductCategory::whereHas('getSubCategory.getProductsSubCatWise')->with(
             'getSubCategory.getProductsSubCatWise.getBrand',
             'getSubCategory.getProductsSubCatWise.getUnit',
-            'getSubCategory.getProductsSubCatWise.getStock'
+            'getSubCategory.getProductsSubCatWise.getStock',
+            'getSubCategory.getProductsSubCatWise.getRating'
         )->where('parent', null)->get();
 
         // return $data;
