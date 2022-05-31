@@ -141,6 +141,39 @@
       </div>
     </div>
 </div>
+
+{{-- Models --}}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="reviews">
+
+                </div>
+                {{-- <form action="{{ route('customer.review.post') }}" class="form_submit">
+                    <input type="hidden" id="product_id" name="product_id">
+                    <input id="input-21b" value="4" type="text" class="rating" data-theme="krajee-fas"
+                        data-min=0 data-max=5 data-step=0.2 data-size="xs" title="" name="rating">
+                    <div class="clearfix"></div>
+                    <textarea type="text" name="comments" style="width: 100%" class="form-control ml-3"
+                        placeholder="Write product experience here..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-success mt-2">Post</button>
+                </form> --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- @include('') --}}
+@include('product.product_common')
+@include('layouts.common')
 @endsection
 
 @section('js')
@@ -190,8 +223,19 @@
                 force_sub_category = res.info.sub_category;
             },'GET',"{{route('admin.product.edit')}}", data);
         }
+
+        function getReviews(product_id) {
+            console.log("qewrqweqwe");
+            customAjaxCall(function(res) {
+                console.warn(res);
+                $('#exampleModal').modal('show');
+                $('.reviews').html(res.html);
+            }, 'get', "{{ route('customer.reviews') }}", {
+                product_id
+            })
+        }
     </script>
 
 @endsection
 
-@include('product.product_common')
+

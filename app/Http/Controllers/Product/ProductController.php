@@ -23,7 +23,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        $data = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit')
+        $data = Products::with('getCategory', 'getSubCategory', 'getBrand', 'getUnit','getRating')
             ->where('status', 1)->paginate(10);
         $body = $this->getProductList($data);
         $paginate = $data->links();

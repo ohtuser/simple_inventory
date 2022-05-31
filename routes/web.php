@@ -58,7 +58,6 @@ Route::group(['middleware' => 'admin_or_stuff_or_customer'], function () {
             Route::get('req_cancel', [OrderController::class, 'req_cancel'])->name('req_cancel');
         });
         Route::post('review/post', [ReviewController::class, 'review_post'])->name('review.post');
-        Route::get('review/product_wise', [ReviewController::class, 'review_product_wise'])->name('reviews');
     });
 
     Route::name('transaction.')->prefix('transaction')->group(function () {
@@ -194,6 +193,9 @@ Route::get('set', function () {
     return "success";
 });
 
+Route::name('customer.')->prefix('customer')->group(function () {
+    Route::get('review/product_wise', [ReviewController::class, 'review_product_wise'])->name('reviews');
+});
 
 // developer helper
 Route::get('session', function () {
